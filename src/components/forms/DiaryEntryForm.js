@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { getCurrentDate, day } from '../../utils/DateUtils'
 import { loadingInitiate, loadingEnd } from '../../redux/actions'
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 function DiaryEntryForm() {
 
@@ -13,6 +16,8 @@ function DiaryEntryForm() {
     const [place, setPlace] = useState("")
     const [description, setDescription] = useState("")
     const [thoughts, setThoughts] = useState("")
+    const [msg, setMsg] = useState(null)
+    const [open, setOpen] = React.useState(false);
 
 
     const handlePlaceChange = (event) => {
@@ -39,15 +44,26 @@ function DiaryEntryForm() {
                 }
             }).then((response) => {
                 console.log(response);
+                setMsg("Successfully saved your entry to your diary")
             }).catch((e) => {
                 console.log(e);
+                setMsg("Error Occured while saving your entry!!!")
             })
+        setOpen(true)
         dispatch(loadingEnd())
         setPlace("");
         setDescription("");
         setThoughts("");
         event.preventDefault();
     }
+    
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setMsg(null)
+        setOpen(false);
+      };
 
     return (
         <Paper elevation={3} sx={{
@@ -56,6 +72,7 @@ function DiaryEntryForm() {
             padding: '5%',
             textAlign: 'left'
         }}>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}><Alert onClose={handleClose} severity="info">{msg}</Alert></Snackbar>
             <h5> Entry: {getCurrentDate('/')} </h5>
             <h5>{day}</h5>
             <TextField
@@ -96,7 +113,7 @@ function DiaryEntryForm() {
             />
             <h5> Your's lovingly </h5>
             <h5> {currentUser && currentUser.displayName} </h5>
-            { <Button variant="contained" color='primary' onClick={handleEntrySubmit}>Submit</Button>}
+            {loading ? <CircularProgress /> :  <Button variant="contained" disabled = {loading ? true : false} color='primary' onClick={handleEntrySubmit}>Submit</Button>}
         </Paper>
     )
 }

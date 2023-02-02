@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginInitiate } from '../../redux/actions';
 import { Grid, Button, Paper, Box, TextField, FormControl, InputLabel, Input, IconButton } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
@@ -12,6 +12,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 
 function LoginForm() {
 
+    const { loading } = useSelector(state => state.user)
     const dispatch = useDispatch();
 
     const loginWithGoogle = () => {
@@ -77,15 +78,15 @@ function LoginForm() {
                     </Box>
 
                     <Box m={2} px={7} mt={3}>
-                        <Button fullWidth variant="contained">Submit</Button>
+                        <Button fullWidth variant="contained" disabled = {loading ? true : false}>Submit</Button>
                     </Box>
 
                     <Grid container spacing={1} mt={5}>
                         <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
+                            <Button variant="outlined" disabled = {loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
+                            <Button variant="outlined" disabled = {loading ? true : false} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
                         </Grid>
                     </Grid>
 
