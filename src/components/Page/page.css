@@ -1,0 +1,17 @@
+*{
+    box-sizing: border-box;
+}
+
+.pageContainer{
+    border-radius: 5px;
+    box-shadow: 0px 5px 5px gray;
+    background-color: #E7D2CC;
+    padding: 30px;
+    margin: 10px;  
+}
+
+pre {
+    white-space: pre-wrap;
+    text-align: start;
+    text-decoration: underline grey;
+}
