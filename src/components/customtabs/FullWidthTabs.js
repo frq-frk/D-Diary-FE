@@ -76,10 +76,10 @@ export default function VerticalTabs() {
         <PastEntries />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        Todo will be coming soon, please stay tunded, we are working to bring our best...
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+        Memo will be coming soon, please stay tunded, we are working to bring our best...
       </TabPanel>
 
     </Box>

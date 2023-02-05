@@ -42,6 +42,7 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
                 currentUser: null,
                 token: null,
+                error : null,
             }
 
         case types.LOGOUT_FAIL:

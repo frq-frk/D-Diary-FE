@@ -7,12 +7,11 @@ function ImageFiller({image}) {
             <Box sx={{
                 height : '100%',
                 padding : '1%',
-                borderRadius : '10px',
             }}>
             <img
                     src={image}
                     alt='filler img'
-                    style={{'height' : '100%', 'width' : '100%', }}
+                    style={{'height' : '100%', 'width' : '100%', 'borderRadius':'10px' }}
                 />
             </Box>
         </Grid>

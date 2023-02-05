@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginInitiate } from '../../redux/actions';
-import { Grid, Button, Paper, Box, TextField, FormControl, InputLabel, Input, IconButton } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { facebookLoginInitiate, googleLoginInitiate } from '../../redux/actions';
+import { Grid, Button, Paper, Box, TextField, FormControl, InputLabel, Input, IconButton, Snackbar, Alert } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -12,11 +13,30 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 
 function LoginForm() {
 
-    const { loading } = useSelector(state => state.user)
+    const { loading, error, currentUser } = useSelector(state => state.user)
+
+    const navigate = useNavigate();
+
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if(currentUser){
+            navigate('/')
+        }
+        else if(error){
+            setOpen(true)
+        }
+    })
+
+
     const dispatch = useDispatch();
 
     const loginWithGoogle = () => {
-        dispatch(loginInitiate());
+        dispatch(googleLoginInitiate());
+    }
+
+    const loginWithFB = () => {
+        dispatch(facebookLoginInitiate());
     }
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -25,6 +45,13 @@ function LoginForm() {
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     };
 
     return (
@@ -86,12 +113,13 @@ function LoginForm() {
                             <Button variant="outlined" disabled = {loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" disabled = {loading ? true : false} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
+                            <Button variant="outlined" disabled = {loading ? true : false} onClick={loginWithFB} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
                         </Grid>
                     </Grid>
 
                 </Box>
             </Paper>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}><Alert onClose={handleClose} severity="error">Error while Logging In!</Alert></Snackbar>
         </Grid>
     )
 }

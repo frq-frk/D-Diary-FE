@@ -7,6 +7,13 @@ import { loadingInitiate, loadingEnd } from '../../redux/actions'
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 function DiaryEntryForm() {
 
@@ -17,7 +24,11 @@ function DiaryEntryForm() {
     const [description, setDescription] = useState("")
     const [thoughts, setThoughts] = useState("")
     const [msg, setMsg] = useState(null)
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [dialog, setDialog] = useState(false);
+
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 
     const handlePlaceChange = (event) => {
@@ -49,6 +60,7 @@ function DiaryEntryForm() {
                 console.log(e);
                 setMsg("Error Occured while saving your entry!!!")
             })
+        setDialog(false)
         setOpen(true)
         dispatch(loadingEnd())
         setPlace("");
@@ -56,13 +68,21 @@ function DiaryEntryForm() {
         setThoughts("");
         event.preventDefault();
     }
-    
-      const handleClose = (event, reason) => {
+
+    const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
         setMsg(null)
         setOpen(false);
+    };
+
+    const handleDialogOpen = () => {
+        setDialog(true);
+      };
+
+    const handleDialogClose = () => {
+        setDialog(false);
       };
 
     return (
@@ -113,7 +133,30 @@ function DiaryEntryForm() {
             />
             <h5> Your's lovingly </h5>
             <h5> {currentUser && currentUser.displayName} </h5>
-            {loading ? <CircularProgress /> :  <Button variant="contained" disabled = {loading ? true : false} color='primary' onClick={handleEntrySubmit}>Submit</Button>}
+            {loading ? <CircularProgress /> : <Button variant="contained" disabled={loading ? true : false} color='primary' onClick={handleDialogOpen}>Save</Button>}
+            <Dialog
+                fullScreen={fullScreen}
+                open={dialog}
+                onClose={handleDialogClose}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    {"Confirmation!!!"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                    Can't be deleted or edited once saved!!! Please be sure when you are saving.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleDialogClose}>
+                        Cancel
+                    </Button>
+                    <Button onClick={handleEntrySubmit} autoFocus>
+                        Proceed
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Paper>
     )
 }

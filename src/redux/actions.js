@@ -1,6 +1,6 @@
 import * as types from "./actionTypes"
 import { auth } from "../firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const loginStart = () => ({
     type: types.LOGIN_START,
@@ -37,13 +37,27 @@ const loadingStop = () => ({
     type : types.LOADING_STOP,
 });
 
-export const loginInitiate = () => {
+export const googleLoginInitiate = () => {
 
     const googleAuthProvider = new GoogleAuthProvider()
     return async function (dispatch) {
         dispatch(loginStart());
 
         await signInWithPopup(auth, googleAuthProvider).then((result) => {
+            dispatch(loginSuccess(result.user));
+        }).catch((err) => {
+            dispatch(loginFail(err));
+        })
+
+    }
+}
+
+export const facebookLoginInitiate = () => {
+
+    const fbAuthProvider = new FacebookAuthProvider()
+    return async function (dispatch) {
+        dispatch(loginStart());
+        await signInWithPopup(auth, fbAuthProvider).then((result) => {
             dispatch(loginSuccess(result.user));
         }).catch((err) => {
             dispatch(loginFail(err));
