@@ -9,6 +9,23 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case types.SIGN_UP_WITH_EMAIL_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                currentUser: action.payload.providerData[0],
+                token: action.payload.accessToken,
+            }
+
+            case types.LOGIN_WITH_EMAIL_SUCCESS:
+                return {
+                    ...state,
+                    loading: false,
+                    currentUser: action.payload.providerData[0],
+                    token: action.payload.accessToken,
+                }
+
         case types.LOGIN_START:
             return {
                 ...state,
@@ -42,7 +59,7 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
                 currentUser: null,
                 token: null,
-                error : null,
+                error: null,
             }
 
         case types.LOGOUT_FAIL:

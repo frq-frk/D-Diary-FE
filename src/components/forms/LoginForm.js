@@ -2,13 +2,11 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { facebookLoginInitiate, googleLoginInitiate } from '../../redux/actions';
-import { Grid, Button, Paper, Box, TextField, FormControl, InputLabel, Input, IconButton, Snackbar, Alert } from '@mui/material'
+import { Grid, Button, Paper, Box, Snackbar, Alert } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
-import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import EmailLoginForm from './EmailLoginForm';
+import EmailSignupForm from './EmailSignupForm';
 
 
 function LoginForm() {
@@ -17,6 +15,7 @@ function LoginForm() {
 
     const navigate = useNavigate();
 
+    const [isLogin, setIsLogin] = React.useState(true);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -26,7 +25,7 @@ function LoginForm() {
         else if(error){
             setOpen(true)
         }
-    })
+    }, [currentUser, error, navigate])
 
 
     const dispatch = useDispatch();
@@ -39,13 +38,7 @@ function LoginForm() {
         dispatch(facebookLoginInitiate());
     }
 
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+    
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -53,6 +46,12 @@ function LoginForm() {
         }
         setOpen(false);
     };
+
+    const toggleForm = () => {
+        setIsLogin((prevValue) => {
+            return !prevValue;
+        })
+    }
 
     return (
         <Grid item xs={12} sm={4} md={4} my={5} mx={1}>
@@ -68,46 +67,11 @@ function LoginForm() {
                     flexDirection='column'
                     justifyContent='space-between'
                 >
-                    <h1>Login</h1>
-                    <Box m={1} px={8}>
-                        <TextField
-                            fullWidth
-                            id="input-with-icon-textfield"
-                            label="Mail"
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="start">
-                                        <MailOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            variant="standard"
-                            size='small'
-                        />
-                        <FormControl fullWidth variant="standard">
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input
-                                id="standard-adornment-password"
-                                type={showPassword ? 'text' : 'password'}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                    </Box>
+                    { isLogin ? <EmailLoginForm/> : <EmailSignupForm/>}
 
-                    <Box m={2} px={7} mt={3}>
-                        <Button fullWidth variant="contained" disabled = {loading ? true : false}>Submit</Button>
-                    </Box>
-
+                    {isLogin ? 
+                    <><p>Don't have an account? </p><Button onClick={toggleForm}>Signup</Button></> 
+                    : <><p>Already a user? </p><Button onClick={toggleForm}>Login</Button></> }
                     <Grid container spacing={1} mt={5}>
                         <Grid item xs={12} md={12} lg={6}>
                             <Button variant="outlined" disabled = {loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>

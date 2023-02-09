@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Paper, TextField, Button } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
@@ -19,6 +19,16 @@ function DiaryEntryForm() {
 
     const { currentUser, token, loading } = useSelector(state => state.user)
     const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     axios.get(`http://localhost:5000/entrybytoday`, {
+    //         headers: {
+    //             'Authorization': `Bearer ${this.state.token}`
+    //         }
+    //     }).then((res) => {
+    //         console.log(res)
+    //     })
+    // })
 
     const [place, setPlace] = useState("")
     const [description, setDescription] = useState("")

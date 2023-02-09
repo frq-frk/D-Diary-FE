@@ -1,6 +1,17 @@
 import * as types from "./actionTypes"
 import { auth } from "../firebase";
-import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { deleteUser, updateProfile } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+const signupWithEmailSuccess = (user) => ({
+    type : types.SIGN_UP_WITH_EMAIL_SUCCESS,
+    payload: user
+})
+
+const loginWithEmailSuccess = (user) => ({
+    type : types.LOGIN_WITH_EMAIL_SUCCESS,
+    payload: user
+})
 
 const loginStart = () => ({
     type: types.LOGIN_START,
@@ -58,7 +69,45 @@ export const facebookLoginInitiate = () => {
     return async function (dispatch) {
         dispatch(loginStart());
         await signInWithPopup(auth, fbAuthProvider).then((result) => {
+            console.log(result)
             dispatch(loginSuccess(result.user));
+        }).catch((err) => {
+            dispatch(loginFail(err));
+        })
+
+    }
+}
+
+export const emailSignupInitiate = ({email, passwd, dName}) => {
+
+    return async function (dispatch) {
+        dispatch(loginStart());
+        await createUserWithEmailAndPassword(auth, email, passwd).then((result) => {
+            updateProfile(result.user,{
+                displayName: dName
+            }).then(() => {
+                dispatch(signupWithEmailSuccess(result.user));
+            }).catch(() => {
+                deleteUser(result.user).then(() => {
+                    dispatch(loginFail("Error while creating user"));
+                }).catch((e) => {
+                    console.log(e);
+                })
+            })
+            
+        }).catch((err) => {
+            dispatch(loginFail(err));
+        })
+
+    }
+}
+
+export const emailLoginInitiate = ({email, passwd}) => {
+
+    return async function (dispatch) {
+        dispatch(loginStart());
+        await signInWithEmailAndPassword(auth, email, passwd).then((result) => {
+            dispatch(loginWithEmailSuccess(result.user));
         }).catch((err) => {
             dispatch(loginFail(err));
         })

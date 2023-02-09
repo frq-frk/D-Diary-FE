@@ -149,7 +149,7 @@ function ResponsiveAppBar() {
           </Box>
 
           {currentUser && <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={`${currentUser.displayName}'s Settings`}>
+            <Tooltip title={`${ currentUser.displayName ? currentUser.displayName : `user` }'s Settings`}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src={currentUser.photoURL}></Avatar>
               </IconButton>

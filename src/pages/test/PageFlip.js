@@ -37,14 +37,6 @@ export class PageFlip extends Component {
 
     }
 
-    nextButtonClick = () => {
-        this.flipBook.getPageFlip().flipNext();
-    };
-
-    prevButtonClick = () => {
-        this.flipBook.getPageFlip().flipPrev();
-    };
-
     onPage = (e) => {
         this.setState({
             page: e.data,
@@ -59,7 +51,7 @@ export class PageFlip extends Component {
             }
         }).then((res) => {
             console.log(res.data)
-            var entries = res.data;
+            var entries = res.data.reverse();
 
             if (entries.length === 0)
                 entries.push({ 'entry': "No entries in this month" })
