@@ -18,24 +18,33 @@ import { useTheme } from '@mui/material/styles';
 function DiaryEntryForm() {
 
     const { currentUser, token, loading } = useSelector(state => state.user)
+    
+    const [ isEntryEmpty, setIsEntryEmpty ] = useState(true);
+    
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     axios.get(`http://localhost:5000/entrybytoday`, {
-    //         headers: {
-    //             'Authorization': `Bearer ${this.state.token}`
-    //         }
-    //     }).then((res) => {
-    //         console.log(res)
-    //     })
-    // })
-
+    
     const [place, setPlace] = useState("")
     const [description, setDescription] = useState("")
     const [thoughts, setThoughts] = useState("")
     const [msg, setMsg] = useState(null)
     const [open, setOpen] = useState(false);
     const [dialog, setDialog] = useState(false);
+    
+    useEffect(() => {
+        axios.get(`http://localhost:5000/entrybytoday`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then((res) => {
+            // console.log(res.data)
+            if(res.data.length >= 1){
+                setIsEntryEmpty(false);
+                setMsg("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!")
+                setOpen(true)
+            }
+        }).catch((e) => console.log(e));
+    })
+
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -110,6 +119,7 @@ function DiaryEntryForm() {
                 variant="standard"
                 margin="dense"
                 label="Place"
+                disabled={isEntryEmpty ? false : true}
                 helperText="Please enter your current place"
                 value={place}
                 onChange={handlePlaceChange}
@@ -122,6 +132,7 @@ function DiaryEntryForm() {
                 rows={4}
                 margin="dense"
                 label="Description"
+                disabled={isEntryEmpty ? false : true}
                 helperText="Describe your day briefly including your day activities"
                 value={description}
                 onChange={handleDescChange}
@@ -135,6 +146,7 @@ function DiaryEntryForm() {
                 rows={4}
                 margin="dense"
                 label="thoughts and feelings"
+                disabled={isEntryEmpty ? false : true}
                 helperText="Describe your thoughts and feelings about the day"
                 value={thoughts}
                 onChange={handleThoughtChange}
@@ -143,7 +155,7 @@ function DiaryEntryForm() {
             />
             <h5> Your's lovingly </h5>
             <h5> {currentUser && currentUser.displayName} </h5>
-            {loading ? <CircularProgress /> : <Button variant="contained" disabled={loading ? true : false} color='primary' onClick={handleDialogOpen}>Save</Button>}
+            {loading ? <CircularProgress /> : <Button variant="contained" disabled={loading || !isEntryEmpty ? true : false} color='primary' onClick={handleDialogOpen}>Save</Button>}
             <Dialog
                 fullScreen={fullScreen}
                 open={dialog}

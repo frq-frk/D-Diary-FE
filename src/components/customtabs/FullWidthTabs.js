@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import TodayEntry from '../diary/TodayEntry';
 import CreateIcon from '@mui/icons-material/Create';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import PastEntries from '../diary/PastEntries';
+import TodayEntry from '../../pages/diary/TodayEntry'
+import PastEntries from '../../pages/diary/PastEntries';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

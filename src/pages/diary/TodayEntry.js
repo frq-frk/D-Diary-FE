@@ -1,28 +1,25 @@
 import React, { useEffect } from 'react'
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Box } from '@mui/material'
-import FullWidthTabs from '../../components/customtabs/FullWidthTabs'
+import { useNavigate } from 'react-router-dom';
+import DiaryEntryForm from '../../components/forms/DiaryEntryForm';
 
-function Home() {
+function TodayEntry() {
 
     const { currentUser } = useSelector(state => state.user)
     const navigate = useNavigate()
-
     useEffect(() => {
         if (!currentUser) {
             navigate('/login')
         }
     }, [currentUser, navigate])
 
-    
-
     return (
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            {/* <FullWidthTabs/>             */}
-            <p>This is Home</p>
+        <Box sx={{ m: 4 }}>
+            <h4>Today's Diary Entry</h4>
+            <DiaryEntryForm />
         </Box>
     )
 }
 
-export default Home
+export default TodayEntry

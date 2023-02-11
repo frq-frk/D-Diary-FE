@@ -13,7 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useDispatch, useSelector } from 'react-redux'
-import {colors} from '../../theme/Colors'
+import { useNavigate } from 'react-router-dom'
+import { colors } from '../../theme/Colors'
 import { logoutInitiate } from '../../redux/actions'
 
 const logoName = 'D-Diary'
@@ -23,14 +24,18 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElDiary, setAnchorElDiary] = React.useState(null);
+  const [anchorElDiaryBlock, setAnchorElDiaryBlock] = React.useState(null);
+
+  const navigate = useNavigate();
 
   const { currentUser } = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   const logoutUser = () => {
     if (currentUser)
-        dispatch(logoutInitiate())
-}
+      dispatch(logoutInitiate())
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,8 +44,23 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleOpenDiaryMenu = (event) => {
+    setAnchorElDiary(event.currentTarget)
+  }
+
+  const handleOpenDiaryMenuBlock = (event) => {
+    setAnchorElDiaryBlock(event.currentTarget)
+  }
+
+  const handleCloseNavMenu = (event) => {
     setAnchorElNav(null);
+    // console.log(event.target.textContent)
+    const val = event.target.textContent;
+
+    switch (val) {
+      default:
+        break;
+    }
   };
 
   const handleCloseUserMenu = (event) => {
@@ -48,15 +68,47 @@ function ResponsiveAppBar() {
     // console.log(event.target.textContent)
     const val = event.target.textContent;
 
-    switch(val){
+    switch (val) {
 
-      case 'Logout' : logoutUser()
-                break;
+      case 'Logout': logoutUser()
+        break;
 
-      default :
-                break;
+      default:
+        break;
     }
   };
+
+  const handleCloseDiaryMenu = (event) => {
+    setAnchorElDiary(null);
+    setAnchorElNav(null);
+
+    const val = event.target.textContent;
+
+    switch (val) {
+      default:
+        break;
+    }
+  }
+
+  const handleCloseDiaryMenuBlock = (event) => {
+    setAnchorElDiaryBlock(null);
+
+    const val = event.target.textContent;
+
+    switch (val) {
+
+      case "Today's Entry":
+          navigate('/entry');
+          break;
+
+      case "Past Entries":
+          navigate('/pastentries');
+          break;
+
+      default:
+        break;
+    }
+  }
 
   return (
     <AppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -115,6 +167,26 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
+                <Typography textAlign="center">Diary</Typography>
+                <Menu
+                  id='diary-menu-appbar'
+                  anchorEl={anchorElDiary}
+                  keepMounted
+                  open={Boolean(anchorElDiary)}
+                  onClose={handleCloseDiaryMenu}
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                  }}
+                >
+                  <MenuItem onClick={handleCloseDiaryMenu}>
+                    <Typography textAlign="center">Today's Entry</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseDiaryMenu} >
+                    <Typography textAlign="center">Past Entries</Typography>
+                  </MenuItem>
+                </Menu>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -146,10 +218,39 @@ function ResponsiveAppBar() {
                 {page}
               </Button>
             ))}
+            <Button
+              onClick={anchorElDiaryBlock ? handleCloseDiaryMenuBlock : handleOpenDiaryMenuBlock}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Diary
+            </Button>
+            <Menu
+              id='diary-menu-appbar'
+              anchorEl={anchorElDiaryBlock}
+              keepMounted
+              open={Boolean(anchorElDiaryBlock)}
+              onClose={handleCloseDiaryMenuBlock}
+              sx={{ mt: '45px' }}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <MenuItem onClick={handleCloseDiaryMenuBlock}>
+                <Typography textAlign="center">Today's Entry</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseDiaryMenuBlock} >
+                <Typography textAlign="center">Past Entries</Typography>
+              </MenuItem>
+            </Menu>
           </Box>
 
           {currentUser && <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={`${ currentUser.displayName ? currentUser.displayName : `user` }'s Settings`}>
+            <Tooltip title={`${currentUser.displayName ? currentUser.displayName : `user`}'s Settings`}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src={currentUser.photoURL}></Avatar>
               </IconButton>
@@ -179,7 +280,7 @@ function ResponsiveAppBar() {
           </Box>}
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 }
 export default ResponsiveAppBar;
