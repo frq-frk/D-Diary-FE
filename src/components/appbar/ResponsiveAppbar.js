@@ -19,7 +19,7 @@ import { logoutInitiate } from '../../redux/actions'
 
 const logoName = 'D-Diary'
 const pages = ['Site', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Edit Profile', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -85,6 +85,15 @@ function ResponsiveAppBar() {
     const val = event.target.textContent;
 
     switch (val) {
+      
+      case "Today's Entry":
+          navigate('/entry');
+          break;
+
+      case "Past Entries":
+          navigate('/pastentries');
+          break;
+
       default:
         break;
     }
@@ -167,7 +176,7 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-              <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
+              { currentUser && <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
                 <Typography textAlign="center">Diary</Typography>
                 <Menu
                   id='diary-menu-appbar'
@@ -186,7 +195,7 @@ function ResponsiveAppBar() {
                     <Typography textAlign="center">Past Entries</Typography>
                   </MenuItem>
                 </Menu>
-              </MenuItem>
+              </MenuItem> }
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -206,7 +215,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {logoName}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

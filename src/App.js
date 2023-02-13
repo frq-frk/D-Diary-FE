@@ -8,6 +8,7 @@ import { customTheme } from './theme/CustomTheme'
 import CustomFooter from './components/footer/CustomFooter';
 import TodayEntry from './pages/diary/TodayEntry';
 import PastEntries from './pages/diary/PastEntries';
+import VerifyEmailPage from './pages/utilPages/VerifyEmailPage';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             {/* <Route path='/pageflip' element={<PageFlip />}></Route> */}
             <Route path='/entry' element={<TodayEntry />}></Route>
             <Route path='/pastentries' element={<PastEntries />}></Route>
+            <Route path='/verifyemail' element={<VerifyEmailPage />}></Route>
           </Routes>
           {/* <CustomFooter /> */}
         </div>

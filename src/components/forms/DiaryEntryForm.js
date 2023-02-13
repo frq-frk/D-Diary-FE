@@ -86,6 +86,7 @@ function DiaryEntryForm() {
         setDescription("");
         setThoughts("");
         event.preventDefault();
+        
     }
 
     const handleClose = (event, reason) => {

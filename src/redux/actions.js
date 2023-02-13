@@ -2,6 +2,7 @@ import * as types from "./actionTypes"
 import { auth } from "../firebase";
 import { deleteUser, updateProfile } from "firebase/auth";
 import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { sendEmail } from "../utils/FirebaseUtils";
 
 const signupWithEmailSuccess = (user) => ({
     type : types.SIGN_UP_WITH_EMAIL_SUCCESS,
@@ -87,6 +88,7 @@ export const emailSignupInitiate = ({email, passwd, dName}) => {
                 displayName: dName
             }).then(() => {
                 dispatch(signupWithEmailSuccess(result.user));
+                sendEmail(result.user)
             }).catch(() => {
                 deleteUser(result.user).then(() => {
                     dispatch(loginFail("Error while creating user"));

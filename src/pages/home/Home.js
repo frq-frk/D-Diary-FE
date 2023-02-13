@@ -6,14 +6,16 @@ import FullWidthTabs from '../../components/customtabs/FullWidthTabs'
 
 function Home() {
 
-    const { currentUser } = useSelector(state => state.user)
+    const { currentUser, isVerified } = useSelector(state => state.user)
     const navigate = useNavigate()
 
     useEffect(() => {
         if (!currentUser) {
             navigate('/login')
+        }else if(isVerified != null && !isVerified){
+            navigate('/verifyemail')
         }
-    }, [currentUser, navigate])
+    }, [currentUser, navigate, isVerified])
 
     
 
