@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material'
-import FullWidthTabs from '../../components/customtabs/FullWidthTabs'
+import Dashboard from '../profile/Dashboard'
 
 function Home() {
 
@@ -22,7 +22,8 @@ function Home() {
     return (
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             {/* <FullWidthTabs/>             */}
-            <p>This is Home</p>
+            {/* <p>This is Home</p> */}
+            <Dashboard/>
         </Box>
     )
 }

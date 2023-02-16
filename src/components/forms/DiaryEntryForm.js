@@ -18,18 +18,18 @@ import { useTheme } from '@mui/material/styles';
 function DiaryEntryForm() {
 
     const { currentUser, token, loading } = useSelector(state => state.user)
-    
-    const [ isEntryEmpty, setIsEntryEmpty ] = useState(true);
-    
+
+    const [isEntryEmpty, setIsEntryEmpty] = useState(true);
+
     const dispatch = useDispatch();
-    
+
     const [place, setPlace] = useState("")
     const [description, setDescription] = useState("")
     const [thoughts, setThoughts] = useState("")
     const [msg, setMsg] = useState(null)
     const [open, setOpen] = useState(false);
     const [dialog, setDialog] = useState(false);
-    
+
     useEffect(() => {
         axios.get(`http://localhost:5000/entrybytoday`, {
             headers: {
@@ -37,7 +37,7 @@ function DiaryEntryForm() {
             }
         }).then((res) => {
             // console.log(res.data)
-            if(res.data.length >= 1){
+            if (res.data.length >= 1) {
                 setIsEntryEmpty(false);
                 setMsg("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!")
                 setOpen(true)
@@ -45,6 +45,17 @@ function DiaryEntryForm() {
         }).catch((e) => console.log(e));
     })
 
+    const updateEntries = () => {
+        axios.put("http://localhost:5000/incremententries",{} ,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then((response) => {
+            console.log(response)
+        }).catch((e) => {
+            console.log(e)
+        })
+    }
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -74,6 +85,7 @@ function DiaryEntryForm() {
                 }
             }).then((response) => {
                 console.log(response);
+                updateEntries();
                 setMsg("Successfully saved your entry to your diary")
             }).catch((e) => {
                 console.log(e);
@@ -86,7 +98,7 @@ function DiaryEntryForm() {
         setDescription("");
         setThoughts("");
         event.preventDefault();
-        
+
     }
 
     const handleClose = (event, reason) => {
@@ -99,11 +111,11 @@ function DiaryEntryForm() {
 
     const handleDialogOpen = () => {
         setDialog(true);
-      };
+    };
 
     const handleDialogClose = () => {
         setDialog(false);
-      };
+    };
 
     return (
         <Paper elevation={3} sx={{
@@ -168,7 +180,7 @@ function DiaryEntryForm() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                    Can't be deleted or edited once saved!!! Please be sure when you are saving.
+                        Can't be deleted or edited once saved!!! Please be sure when you are saving.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

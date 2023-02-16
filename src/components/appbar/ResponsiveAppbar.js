@@ -19,7 +19,7 @@ import { logoutInitiate } from '../../redux/actions'
 
 const logoName = 'D-Diary'
 const pages = ['Site', 'Blog'];
-const settings = ['Edit Profile', 'Dashboard', 'Logout'];
+const settings = ['Update Profile', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -70,6 +70,14 @@ function ResponsiveAppBar() {
 
     switch (val) {
 
+      case 'Dashboard':
+        navigate('/');
+        break;
+
+      case 'Update Profile':
+        navigate('/updateprofile');
+        break;
+
       case 'Logout': logoutUser()
         break;
 
@@ -85,14 +93,14 @@ function ResponsiveAppBar() {
     const val = event.target.textContent;
 
     switch (val) {
-      
+
       case "Today's Entry":
-          navigate('/entry');
-          break;
+        navigate('/entry');
+        break;
 
       case "Past Entries":
-          navigate('/pastentries');
-          break;
+        navigate('/pastentries');
+        break;
 
       default:
         break;
@@ -107,12 +115,12 @@ function ResponsiveAppBar() {
     switch (val) {
 
       case "Today's Entry":
-          navigate('/entry');
-          break;
+        navigate('/entry');
+        break;
 
       case "Past Entries":
-          navigate('/pastentries');
-          break;
+        navigate('/pastentries');
+        break;
 
       default:
         break;
@@ -176,7 +184,7 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-              { currentUser && <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
+              {currentUser && <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
                 <Typography textAlign="center">Diary</Typography>
                 <Menu
                   id='diary-menu-appbar'
@@ -195,7 +203,7 @@ function ResponsiveAppBar() {
                     <Typography textAlign="center">Past Entries</Typography>
                   </MenuItem>
                 </Menu>
-              </MenuItem> }
+              </MenuItem>}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -227,12 +235,13 @@ function ResponsiveAppBar() {
                 {page}
               </Button>
             ))}
-            <Button
+            {currentUser && <Button
               onClick={anchorElDiaryBlock ? handleCloseDiaryMenuBlock : handleOpenDiaryMenuBlock}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               Diary
             </Button>
+            }
             <Menu
               id='diary-menu-appbar'
               anchorEl={anchorElDiaryBlock}

@@ -9,6 +9,7 @@ import CustomFooter from './components/footer/CustomFooter';
 import TodayEntry from './pages/diary/TodayEntry';
 import PastEntries from './pages/diary/PastEntries';
 import VerifyEmailPage from './pages/utilPages/VerifyEmailPage';
+import UpdateProfileForm from './components/forms/UpdateProfileForm';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path='/entry' element={<TodayEntry />}></Route>
             <Route path='/pastentries' element={<PastEntries />}></Route>
             <Route path='/verifyemail' element={<VerifyEmailPage />}></Route>
+            <Route path='/updateprofile' element={<UpdateProfileForm />}></Route>
           </Routes>
           {/* <CustomFooter /> */}
         </div>
