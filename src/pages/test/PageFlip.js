@@ -45,7 +45,7 @@ export class PageFlip extends Component {
 
     fetchData = () => {
         console.log(`${this.state.month}-${this.state.year}`)
-        axios.get(`http://localhost:5000/entrybymonth?month=${this.state.month}&year=${this.state.year}`, {
+        axios.get(`http://localhost:5000/v1/dairy/entrybymonth?month=${this.state.month}&year=${this.state.year}`, {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             }
@@ -63,7 +63,7 @@ export class PageFlip extends Component {
                     data: temp
                 })
         }).catch(e => {
-            console.log(e)
+             
             var msg = "";
             if (e.code === "ERR_BAD_REQUEST")
                 msg = "No entries on this month of the year";

@@ -37,9 +37,10 @@ function EmailLoginForm() {
             email: mail,
             passwd: password
         }
+
         dispatch(emailLoginInitiate(obj))
-        setMail("");
-        setPassword("");
+        // setMail("");
+        // setPassword("");
     }
 
     return (

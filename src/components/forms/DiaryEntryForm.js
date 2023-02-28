@@ -31,7 +31,8 @@ function DiaryEntryForm() {
     const [dialog, setDialog] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/entrybytoday`, {
+        axios.get(`http://localhost:5000/v1/dairy/entrybytoday`,
+         {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -42,18 +43,18 @@ function DiaryEntryForm() {
                 setMsg("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!")
                 setOpen(true)
             }
-        }).catch((e) => console.log(e));
+        }).catch((e) =>  );
     })
 
     const updateEntries = () => {
-        axios.put("http://localhost:5000/incremententries",{} ,{
+        axios.put("http://localhost:5000/v1/user/incrementEntries",{} ,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((response) => {
             console.log(response)
         }).catch((e) => {
-            console.log(e)
+             
         })
     }
 
@@ -76,7 +77,7 @@ function DiaryEntryForm() {
         dispatch(loadingInitiate())
         const text = `Entry: ${getCurrentDate('/')}\n${day}\n${place}\n\nDear Diary\n${description}\n${thoughts}\n\nYour's lovingly\n${currentUser.displayName}`;
         console.log(text);
-        axios.post("http://localhost:5000/entry", {
+        axios.post("http://localhost:5000/v1/dairy/entry", {
             "entry": text
         },
             {
@@ -88,7 +89,7 @@ function DiaryEntryForm() {
                 updateEntries();
                 setMsg("Successfully saved your entry to your diary")
             }).catch((e) => {
-                console.log(e);
+                 ;
                 setMsg("Error Occured while saving your entry!!!")
             })
         setDialog(false)

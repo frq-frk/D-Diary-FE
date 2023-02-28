@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Typography, Box, Snackbar, Alert, CircularProgress } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { auth } from '../../firebase';
+import { auth } from '../../firebase/firebase';
 import { sendEmail } from '../../utils/FirebaseUtils';
 import { loadingEnd, loadingInitiate } from '../../redux/actions';
 

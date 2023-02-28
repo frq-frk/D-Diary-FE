@@ -10,15 +10,18 @@ function Profile() {
     const { token } = useSelector(state => state.user)
     const [data, setData] = useState([])
 
+    console.log( "user id token"+  token);
     const fetchProfile = () => {
-        axios.get("http://localhost:5000/userprofile", {
+        axios.get("http://localhost:5000/v1/user/get-profile", 
+        
+        {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((res) => {
             console.log(res)
             setData(res.data)
-        }).catch((e) => console.log(e))
+        }).catch((e) =>  )
     }
     useEffect(() => {
         fetchProfile();

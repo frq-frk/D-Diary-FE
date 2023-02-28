@@ -12,7 +12,7 @@ export function sendEmail(user) {
                 console.log("verification email sent")
                 resolve("Verification mail sent successfull!");
             }).catch((e) => {
-                console.log(e)
+                 
                 reject("error occured while sending email!!")
             })
 

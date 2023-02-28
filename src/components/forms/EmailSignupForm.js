@@ -61,10 +61,10 @@ function EmailSignupForm() {
             dName: name
         }
         dispatch(emailSignupInitiate(obj))
-        setMail("");
-        setPassword("");
-        setConfirmPassword("");
-        setName("");
+        // setMail("");
+        // setPassword("");
+        // setConfirmPassword("");
+        // setName("");
     }
 
     return (

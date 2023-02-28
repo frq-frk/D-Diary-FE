@@ -56,7 +56,12 @@ export const googleLoginInitiate = () => {
         dispatch(loginStart());
 
         await signInWithPopup(auth, googleAuthProvider).then((result) => {
+            
+            
+            console.loG(result.user.uid);
             dispatch(loginSuccess(result.user));
+
+
         }).catch((err) => {
             dispatch(loginFail(err));
         })
@@ -70,7 +75,7 @@ export const facebookLoginInitiate = () => {
     return async function (dispatch) {
         dispatch(loginStart());
         await signInWithPopup(auth, fbAuthProvider).then((result) => {
-            console.log(result)
+            
             dispatch(loginSuccess(result.user));
         }).catch((err) => {
             dispatch(loginFail(err));
@@ -80,20 +85,26 @@ export const facebookLoginInitiate = () => {
 }
 
 export const emailSignupInitiate = ({email, passwd, dName}) => {
-
+    console.log(email);console.log(passwd);
     return async function (dispatch) {
         dispatch(loginStart());
         await createUserWithEmailAndPassword(auth, email, passwd).then((result) => {
+            console.log(email);
+            console.log(passwd);
             updateProfile(result.user,{
                 displayName: dName
             }).then(() => {
                 dispatch(signupWithEmailSuccess(result.user));
                 sendEmail(result.user)
-            }).catch(() => {
+            }).catch((err) => {
+                
+                console.log(err);
                 deleteUser(result.user).then(() => {
+
+                    
                     dispatch(loginFail("Error while creating user"));
                 }).catch((e) => {
-                    console.log(e);
+                     ;
                 })
             })
             
@@ -109,6 +120,7 @@ export const emailLoginInitiate = ({email, passwd}) => {
     return async function (dispatch) {
         dispatch(loginStart());
         await signInWithEmailAndPassword(auth, email, passwd).then((result) => {
+         
             dispatch(loginWithEmailSuccess(result.user));
         }).catch((err) => {
             dispatch(loginFail(err));
