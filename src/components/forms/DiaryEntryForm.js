@@ -43,7 +43,7 @@ function DiaryEntryForm() {
                 setMsg("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!")
                 setOpen(true)
             }
-        }).catch((e) =>  );
+        }).catch((e) =>console.log(e)  );
     })
 
     const updateEntries = () => {

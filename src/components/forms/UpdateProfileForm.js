@@ -93,7 +93,7 @@ function UpdateProfileForm() {
         setShortTermGoalField(response.data.shortTermGoal)
         setLongTermGoalField(response.data.longTermGoal)
       })
-      .catch((e) =>  )
+      .catch((e) => console.log(e)  )
   }
 
   const handleProfileUpdate = () => {

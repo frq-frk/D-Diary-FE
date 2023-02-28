@@ -21,7 +21,7 @@ function Profile() {
         }).then((res) => {
             console.log(res)
             setData(res.data)
-        }).catch((e) =>  )
+        }).catch((e) =>  console.log(e))
     }
     useEffect(() => {
         fetchProfile();
