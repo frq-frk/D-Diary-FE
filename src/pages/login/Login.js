@@ -12,13 +12,13 @@ function Login() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(currentUser)
-        console.log(token)
+        // console.log(currentUser)
+        // console.log(token)
 
         if (currentUser) {
             navigate('/')
         }
-    }, [currentUser, navigate]);
+    }, [currentUser, navigate]);    
 
     return (
         <Grid container spacing={2} direction={'row'} sx={{

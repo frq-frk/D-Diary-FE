@@ -28,6 +28,14 @@ const userReducer = (state = initialState, action) => {
                     token: action.payload.accessToken,
                     isVerified: action.payload.emailVerified,
                 }
+            case types.USER_EXISTS:
+                return {
+                    ...state,
+                    loading: false,
+                    currentUser: action.payload.providerData[0],
+                    token: action.payload.accessToken,
+                    isVerified: action.payload.emailVerified,
+                }
 
         case types.LOGIN_START:
             return {

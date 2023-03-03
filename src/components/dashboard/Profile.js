@@ -10,7 +10,6 @@ function Profile() {
     const { token } = useSelector(state => state.user)
     const [data, setData] = useState([])
 
-    console.log( "user id token"+  token);
     const fetchProfile = () => {
         axios.get("http://localhost:5000/v1/user/get-profile", 
         
