@@ -153,17 +153,9 @@ export const logoutInitiate = () => {
 }
 
 export const checkLoggedIn = (user) => {
-  console.log(
-    'checkLoggedIncheckLoggedIncheckLoggedIncheckLoggedIncheckLoggedIn        ' +
-      user.displayName,
-  )
+  console.log(user)
   return async function (dispatch) {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(userExists(user))
-      } else {
-      }
-    })
+    dispatch(userExists(user))
   }
 }
 

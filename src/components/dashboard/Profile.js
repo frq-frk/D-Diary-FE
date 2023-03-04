@@ -11,8 +11,7 @@ function Profile() {
     const [data, setData] = useState([])
 
     const fetchProfile = () => {
-        axios.get("http://localhost:5000/v1/user/get-profile", 
-        
+        axios.get("http://localhost:5000/v1/user/get-profile",       
         {
             headers: {
                 'Authorization': `Bearer ${token}`

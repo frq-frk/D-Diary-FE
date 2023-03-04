@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material'
 import { checkLoggedIn } from '../../redux/actions'
@@ -8,6 +8,7 @@ import Dashboard from '../profile/Dashboard'
 import { auth } from '../../firebase'
 function Home() {
   const { currentUser, isVerified } = useSelector((state) => state.user)
+  const dispatch = useDispatch();
 
   const [currentAuth, setUser] = useState(null)
   const navigate = useNavigate()
@@ -20,15 +21,15 @@ function Home() {
         // } else if (isVerified != null && !isVerified) {
         //   navigate('/verifyemail')
         // }
-        checkLoggedIn(user)
+        console.log(user)
+        dispatch(checkLoggedIn(user))
         setLoggedIn(true)
-        console.log(userLoggedIn)
       } else {
         navigate('/login')
         setLoggedIn(false)
       }
     })
-  }, [currentUser, navigate, isVerified,userLoggedIn])
+  }, [navigate, userLoggedIn])
 
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
