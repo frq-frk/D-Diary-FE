@@ -67,7 +67,7 @@ export const googleLoginInitiate = () => {
 
     await signInWithPopup(auth, googleAuthProvider)
       .then((result) => {
-        console.loG(result.user.uid)
+        console.log(result.user.uid)
         dispatch(loginSuccess(result.user))
       })
       .catch((err) => {

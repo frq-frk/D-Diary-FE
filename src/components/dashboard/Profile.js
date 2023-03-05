@@ -23,7 +23,7 @@ function Profile() {
     }
     useEffect(() => {
         fetchProfile();
-    },[])
+    },[token])
 
     return (
         <Grid item xs={12} sm={8} md={8}>
