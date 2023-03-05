@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material'
-import { checkLoggedIn } from '../../redux/actions'
+import { checkLoggedIn, loadingEnd, loadingInitiate } from '../../redux/actions'
 import Dashboard from '../profile/Dashboard'
 
 import { auth } from '../../firebase'
@@ -15,6 +15,7 @@ function Home() {
 
   const [userLoggedIn, setLoggedIn] = useState(false)
   useEffect(() => {
+    dispatch(loadingInitiate())
     auth.onAuthStateChanged((user) => {
       if (user) {
         // if (!currentUser) {
@@ -29,6 +30,7 @@ function Home() {
         setLoggedIn(false)
       }
     })
+    dispatch(loadingEnd())
   }, [navigate, userLoggedIn])
 
   return (
