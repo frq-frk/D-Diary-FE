@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HTMLFlipBook from 'react-pageflip'
 import Page from '../../components/Page/Page'
-import store from '../../redux/store';
+import {store} from '../../redux/store';
 import axios from 'axios';
 import { getCurrentMonth, getCurrentYear, getMonthName } from '../../utils/DateUtils'
 import Box from '@mui/material/Box';
