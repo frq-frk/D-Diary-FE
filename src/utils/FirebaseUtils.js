@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase";
 
