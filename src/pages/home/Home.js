@@ -13,9 +13,11 @@ function Home() {
   useEffect(() => {
     dispatch(loadingInitiate())
     auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user && user.emailVerified) {
         dispatch(checkLoggedIn(user))
         navigate('/dashboard')
+      }else if(user){
+        navigate('/verifyEmail')
       } else {
         navigate('/login')
       }

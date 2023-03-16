@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { facebookLoginInitiate, googleLoginInitiate } from '../../redux/actions';
@@ -7,6 +7,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import EmailLoginForm from './EmailLoginForm';
 import EmailSignupForm from './EmailSignupForm';
+import ResetPasswordForm from './ResetPasswordForm';
 
 
 function LoginForm() {
@@ -16,13 +17,14 @@ function LoginForm() {
     const navigate = useNavigate();
 
     const [isLogin, setIsLogin] = React.useState(true);
+    const [isResetPassword, setIsResetPassword] = React.useState(false);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        if(currentUser){
+        if (currentUser) {
             navigate('/')
         }
-        else if(error){
+        else if (error) {
             setOpen(true)
         }
     }, [currentUser, error, navigate])
@@ -38,7 +40,7 @@ function LoginForm() {
         dispatch(facebookLoginInitiate());
     }
 
-    
+
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -49,6 +51,12 @@ function LoginForm() {
 
     const toggleForm = () => {
         setIsLogin((prevValue) => {
+            return !prevValue;
+        })
+    }
+
+    const toggleIsPasswordReset = () => {
+        setIsResetPassword((prevValue) => {
             return !prevValue;
         })
     }
@@ -67,17 +75,20 @@ function LoginForm() {
                     flexDirection='column'
                     justifyContent='space-between'
                 >
-                    { isLogin ? <EmailLoginForm/> : <EmailSignupForm/>}
+                    {isResetPassword ? <ResetPasswordForm /> : (isLogin ? <EmailLoginForm /> : <EmailSignupForm />)}
 
-                    {isLogin ? 
-                    <><p>Don't have an account? </p><Button onClick={toggleForm}>Signup</Button></> 
-                    : <><p>Already a user? </p><Button onClick={toggleForm}>Login</Button></> }
+                    {isResetPassword ? (<Button onClick={toggleIsPasswordReset}>Go to login page</Button>) : (isLogin ?
+                        <>
+                            <Button onClick={toggleForm}>Don't have an account? </Button>
+                            <Button onClick={toggleIsPasswordReset}>Forgot password? </Button>
+                        </>
+                        : <Button onClick={toggleForm}>Already a user? </Button>)}
                     <Grid container spacing={1} mt={5}>
                         <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" disabled = {loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
+                            <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" disabled = {loading ? true : false} onClick={loginWithFB} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
+                            <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithFB} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
                         </Grid>
                     </Grid>
 

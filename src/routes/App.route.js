@@ -7,6 +7,7 @@ import TodayEntry from '../pages/diary/TodayEntry'
 import PastEntries from '../pages/diary/PastEntries'
 import VerifyEmailPage from '../pages/utilPages/VerifyEmailPage'
 import UpdateProfileForm from '../components/forms/UpdateProfileForm'
+import NewPasswordPage from '../pages/login/NewPasswordPage'
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/pastEntries" element={<PastEntries />}></Route>
       <Route path="/verifyEmail" element={<VerifyEmailPage />}></Route>
       <Route path="/updateProfile" element={<UpdateProfileForm />}></Route>
+      <Route path="/newPassword" element={<NewPasswordPage />}></Route>
     </Routes>
   )
 }
