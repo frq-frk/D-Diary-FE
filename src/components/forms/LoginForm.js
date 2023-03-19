@@ -8,6 +8,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import EmailLoginForm from './EmailLoginForm';
 import EmailSignupForm from './EmailSignupForm';
 import ResetPasswordForm from './ResetPasswordForm';
+import { toast } from 'react-toastify';
 
 
 function LoginForm() {
@@ -18,14 +19,16 @@ function LoginForm() {
 
     const [isLogin, setIsLogin] = React.useState(true);
     const [isResetPassword, setIsResetPassword] = React.useState(false);
-    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (currentUser) {
             navigate('/')
         }
-        else if (error) {
-            setOpen(true)
+        else if (!isResetPassword && error) {
+            toast.error("Error while Logging In!", {
+                position: 'bottom-left',
+                toastId: 1
+            })
         }
     }, [currentUser, error, navigate])
 
@@ -39,15 +42,6 @@ function LoginForm() {
     const loginWithFB = () => {
         dispatch(facebookLoginInitiate());
     }
-
-
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    };
 
     const toggleForm = () => {
         setIsLogin((prevValue) => {
@@ -83,18 +77,20 @@ function LoginForm() {
                             <Button onClick={toggleIsPasswordReset}>Forgot password? </Button>
                         </>
                         : <Button onClick={toggleForm}>Already a user? </Button>)}
-                    <Grid container spacing={1} mt={5}>
-                        <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
-                        </Grid>
-                        <Grid item xs={12} md={12} lg={6}>
-                            <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithFB} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
-                        </Grid>
-                    </Grid>
+
+                    {!isResetPassword && (
+                        <Grid container spacing={1} mt={5}>
+                            <Grid item xs={12} md={12} lg={6}>
+                                <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithGoogle} color='text' ><GoogleIcon fontSize='small' /> Login using Google</Button>
+                            </Grid>
+                            <Grid item xs={12} md={12} lg={6}>
+                                <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithFB} color='text' ><FacebookOutlinedIcon fontSize='small' /> Login using Facebook</Button>
+                            </Grid>
+                        </Grid>)
+                    }
 
                 </Box>
             </Paper>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}><Alert onClose={handleClose} severity="error">Error while Logging In!</Alert></Snackbar>
         </Grid>
     )
 }

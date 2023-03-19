@@ -4,11 +4,13 @@ import { TextField, Box, Button } from '@mui/material'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import InputAdornment from '@mui/material/InputAdornment';
 import { resetPassword } from '../../utils/FirebaseUtils';
+import { toast } from 'react-toastify';
 
 function ResetPasswordForm() {
 
     const [mail, setMail] = React.useState("");
-    const [msg, setMsg] = React.useState(null);
+    const [submitted, setSubmitted] = React.useState(false);
+
 
     const { loading } = useSelector(state => state.user)
 
@@ -21,11 +23,18 @@ function ResetPasswordForm() {
         resetPassword(mail)
         .then((res) => {
             console.log(res);
-            setMsg("A link to reset password has been sent to your mail. Please check !!")
+            setSubmitted(true);
+            toast.success("A link to reset password has been sent to your mail. Please check !!",{
+                position: 'bottom-left',
+                toastId: 1
+            })
         })
         .catch((e) => {
             console.log(e);
-            setMsg("Error occured while sending email")
+            toast.error("Error occured while sending email, please check the mail",{
+                position: 'bottom-left',
+                toastId: 1
+            })
         })
         setMail("");
     }
@@ -52,10 +61,8 @@ function ResetPasswordForm() {
                 />
             </Box>
 
-            {msg && <p>{msg}</p>}
-
             <Box m={2} px={7} mt={3}>
-                <Button fullWidth variant="contained" onClick={handleSubmit} disabled={loading || msg ? true : false}>send email</Button>
+                <Button fullWidth variant="contained" onClick={handleSubmit} disabled={loading || submitted ? true : false}>send email</Button>
             </Box>
         </>
     )

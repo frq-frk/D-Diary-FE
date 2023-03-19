@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { toast } from 'react-toastify';
 
 function DiaryEntryForm() {
 
@@ -26,8 +27,6 @@ function DiaryEntryForm() {
     const [place, setPlace] = useState("")
     const [description, setDescription] = useState("")
     const [thoughts, setThoughts] = useState("")
-    const [msg, setMsg] = useState(null)
-    const [open, setOpen] = useState(false);
     const [dialog, setDialog] = useState(false);
 
     useEffect(() => {
@@ -40,8 +39,10 @@ function DiaryEntryForm() {
             // console.log(res.data)
             if (res.data.length >= 1) {
                 setIsEntryEmpty(false);
-                setMsg("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!")
-                setOpen(true)
+                toast.info("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!", {
+                    position: 'bottom-left',
+                    toastId: 1
+                })
             }
         }).catch((e) =>console.log(e)  );
     })
@@ -87,13 +88,17 @@ function DiaryEntryForm() {
             }).then((response) => {
                 console.log(response);
                 updateEntries();
-                setMsg("Successfully saved your entry to your diary")
+                toast.success("Successfully saved your entry to your diary", {
+                    position: 'bottom-left',
+                    toastId: 1
+                })
             }).catch((e) => {
-                 ;
-                setMsg("Error Occured while saving your entry!!!")
+                toast.error("Error Occured while saving your entry!!!", {
+                    position: 'bottom-left',
+                    toastId: 1
+                })
             })
         setDialog(false)
-        setOpen(true)
         dispatch(loadingEnd())
         setPlace("");
         setDescription("");
@@ -101,14 +106,6 @@ function DiaryEntryForm() {
         event.preventDefault();
 
     }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setMsg(null)
-        setOpen(false);
-    };
 
     const handleDialogOpen = () => {
         setDialog(true);
@@ -125,7 +122,6 @@ function DiaryEntryForm() {
             padding: '5%',
             textAlign: 'left'
         }}>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}><Alert onClose={handleClose} severity="info">{msg}</Alert></Snackbar>
             <h5> Entry: {getCurrentDate('/')} </h5>
             <h5>{day}</h5>
             <TextField
