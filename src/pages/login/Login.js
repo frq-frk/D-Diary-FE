@@ -8,12 +8,10 @@ import ImageFiller from '../../components/fillers/ImageFiller';
 
 function Login() {
 
-    const { currentUser, token } = useSelector(state => state.user);
+    const { currentUser } = useSelector(state => state.user);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // console.log(currentUser)
-        // console.log(token)
 
         if (currentUser) {
             navigate('/')

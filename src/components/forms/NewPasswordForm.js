@@ -10,6 +10,7 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import { auth } from '../../firebase'; 
 import { verifyPasswordResetCode, confirmPasswordReset } from "firebase/auth";
 import { loadingEnd, loadingInitiate } from '../../redux/actions';
+import { toast } from 'react-toastify';
 
 
 function NewPasswordForm() {
@@ -59,10 +60,18 @@ function NewPasswordForm() {
         confirmPasswordReset(auth, query.get("oobCode"), password).then((res) => {
             console.log('password updated')
             dispatch(loadingEnd())
+            toast.success("Successfully updated the password. Please log in!!", {
+                position: 'bottom-left',
+                toastId: 1
+            })
             navigate('/');
         }).catch((e) => {
             console.log(e)
             setE(e);
+            toast.error("Error occured while updating the password. Please try again", {
+                position: 'bottom-left',
+                toastId: 1
+            })
             dispatch(loadingEnd())
         })
     }
@@ -155,7 +164,6 @@ function NewPasswordForm() {
                     <Box m={2} px={7} mt={3}>
                         <Button fullWidth variant="contained" onClick={handleSubmit} disabled={loading ? true : false}>Submit</Button>
                     </Box>
-
                 </Box>
             </Paper>
         </Grid>
