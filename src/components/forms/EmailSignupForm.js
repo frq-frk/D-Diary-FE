@@ -72,6 +72,7 @@ function EmailSignupForm() {
             <h1>Signup</h1>
             <Box m={1} px={8}>
                 <TextField
+                    required
                     fullWidth
                     id="input-with-icon-textfield"
                     label="Mail"
@@ -86,10 +87,12 @@ function EmailSignupForm() {
                     }}
                     variant="standard"
                     size='small'
+                    autoComplete="email"
                 />
                 <FormControl fullWidth variant="standard">
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <Input
+                        required
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         value={password}
@@ -110,6 +113,7 @@ function EmailSignupForm() {
                 <FormControl fullWidth variant="standard">
                     <InputLabel htmlFor="standard-adornment-password">Confirm Password</InputLabel>
                     <Input
+                        required
                         id="standard-adornment-password"
                         type={showConfirmPassword ? 'text' : 'password'}
                         value={confirmPassword}
@@ -128,6 +132,7 @@ function EmailSignupForm() {
                     />
                 </FormControl>
                 <TextField
+                    required
                     fullWidth
                     id="input-with-icon-textfield"
                     label="Display Name"

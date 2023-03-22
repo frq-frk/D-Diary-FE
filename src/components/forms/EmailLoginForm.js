@@ -6,6 +6,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { TextField, FormControl, InputLabel, Input, IconButton, Box, Button } from '@mui/material'
 import { emailLoginInitiate } from '../../redux/actions';
+import { colors } from '../../theme/Colors';
 
 function EmailLoginForm() {
 
@@ -48,6 +49,7 @@ function EmailLoginForm() {
             <h1>Login</h1>
             <Box m={1} px={8}>
                 <TextField
+                    required
                     fullWidth
                     id="input-with-icon-textfield"
                     label="Mail"
@@ -66,6 +68,7 @@ function EmailLoginForm() {
                 <FormControl fullWidth variant="standard">
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <Input
+                        required
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         value={password}
