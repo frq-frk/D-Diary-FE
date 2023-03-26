@@ -10,8 +10,8 @@ function Dashboard() {
         alignItems : 'center',
         justifyContent : 'center'
     }}>
-        <IconGroup/>
         <Profile/>
+        <IconGroup/>
     </Grid>
   )
 }

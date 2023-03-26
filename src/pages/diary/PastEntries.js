@@ -29,10 +29,10 @@ function PastEntries() {
     return (
         <Box sx={{ m: 1 }}>
             <Grid container>
-                <Grid item xs={12} sm={12} lg={2}>
+                <Grid item xs={12} sm={12} lg={3}>
                     <EntriesTraverser year={year} month={month} setMonth={setMonth} setYear={setYear} />
                 </Grid>
-                <Grid item xs={12} sm={12} lg={10}>
+                <Grid item xs={12} sm={12} lg={9}>
                     <PageFlip year={year} month={month} />
                 </Grid>
             </Grid>

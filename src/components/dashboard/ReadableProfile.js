@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Typography, Avatar, Paper } from '@mui/material'
+import { Grid, Typography, Avatar, Paper, Box } from '@mui/material'
 import { useSelector } from 'react-redux'
 
 function ReadableProfile(props) {
@@ -7,7 +7,7 @@ function ReadableProfile(props) {
     const { currentUser } = useSelector(state => state.user)
 
     return (
-        <Grid item xs={12}>
+        <Box>
             <Paper elevation={3} sx={{
                 margin: 1,
                 padding: 2
@@ -36,7 +36,7 @@ function ReadableProfile(props) {
                     </Grid>
                 </Grid>
             </Paper>
-        </Grid>
+        </Box>
     )
 }
 

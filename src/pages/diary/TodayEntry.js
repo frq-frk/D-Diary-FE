@@ -20,10 +20,10 @@ function TodayEntry() {
         <Box sx={{ m: 4 }}>
             <h4>Today's Diary Entry</h4>
             <Grid container>
-                <Grid item xs={12} sm={12} lg={2}>
+                <Grid item xs={12} sm={12} lg={3}>
                     <h2>Settings</h2>
                 </Grid>
-                <Grid item xs={12} sm={12} lg={10}>
+                <Grid item xs={12} sm={12} lg={9}>
                     <DiaryEntryForm />
                 </Grid>
             </Grid>
