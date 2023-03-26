@@ -134,14 +134,13 @@ function ResponsiveAppBar() {
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} ></AdbIcon>
             <Typography
-              variant="h6"
+              variant="h5"
               noWrap
               component="a"
               href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: colors.textPrimary,
@@ -158,7 +157,7 @@ function ResponsiveAppBar() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                color={colors.textPrimary}
               >
                 <MenuIcon />
               </IconButton>
@@ -217,10 +216,9 @@ function ResponsiveAppBar() {
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
+                color: colors.textPrimary,
                 textDecoration: 'none',
               }}
             >

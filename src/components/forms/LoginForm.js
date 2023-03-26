@@ -120,7 +120,7 @@ function LoginForm() {
                     </Typography>)
             }
 
-            {!isResetPassword && (
+            {(!isResetPassword && isLogin) && (
                 <Grid container spacing={1} mt={5}>
                     <Grid item xs={12} md={12} lg={6}>
                         <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithGoogle} color='textPrimary' ><GoogleIcon fontSize='small' /> Login using Google</Button>
