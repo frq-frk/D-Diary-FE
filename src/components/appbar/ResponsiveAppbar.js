@@ -129,7 +129,7 @@ function ResponsiveAppBar() {
 
   return (
     <div>
-      { currentUser && <AppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      { currentUser && <AppBar position="sticky" sx={{ backgroundColor:"secondary.main" ,zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} ></AdbIcon>

@@ -4,9 +4,9 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { TextField, FormControl, InputLabel, Input, IconButton, Box, Button } from '@mui/material'
+import { TextField, FormControl, InputLabel, Input, IconButton, Box, Button, FormHelperText } from '@mui/material'
 import { emailLoginInitiate } from '../../redux/actions';
-import { colors } from '../../theme/Colors';
+import { emailValidator, passwordValidator } from '../../utils/AuthUtils';
 
 function EmailLoginForm() {
 
@@ -16,6 +16,8 @@ function EmailLoginForm() {
 
     const [mail, setMail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [mailError, setMailError] = React.useState(false);
+    const [passwordHelperText, setPasswordHelperText] = React.useState("");
 
     const handleMailChange = (event) => {
         setMail(event.target.value);
@@ -34,6 +36,16 @@ function EmailLoginForm() {
     const handleLogin = () => {
         console.log("mail :" + mail);
         console.log("password :" + password);
+        // console.log(passwordValidator(password))
+        if(!emailValidator(mail)){
+            setMailError(true)
+            return
+        }
+        if(!passwordValidator(password)){
+            setMailError(false)
+            setPasswordHelperText("password must contain eight characters with atleast one uppercase, a number and special character")
+            return
+        }
         const obj = {
             email: mail,
             passwd: password
@@ -55,6 +67,8 @@ function EmailLoginForm() {
                     label="Mail"
                     value={mail}
                     onChange={handleMailChange}
+                    helperText="Please enter a valid mail"
+                    error = {mailError}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="start">
@@ -65,7 +79,7 @@ function EmailLoginForm() {
                     variant="standard"
                     size='small'
                 />
-                <FormControl fullWidth variant="standard">
+                <FormControl fullWidth variant="standard" size='small'>
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <Input
                         required
@@ -73,6 +87,7 @@ function EmailLoginForm() {
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={handlePasswordChange}
+                        aria-describedby="pwd-helper-text"
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -85,6 +100,7 @@ function EmailLoginForm() {
                             </InputAdornment>
                         }
                     />
+                    <FormHelperText id="pwd-helper-text" error>{passwordHelperText}</FormHelperText>
                 </FormControl>
             </Box>
 

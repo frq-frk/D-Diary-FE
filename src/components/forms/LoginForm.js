@@ -86,7 +86,7 @@ function LoginForm() {
                             variant="body1"
                             component="span"
                             onClick={toggleIsPasswordReset}
-                            style={{ marginTop: "10px", cursor: "pointer", color: colors.primary }}
+                            style={{ marginTop: "10px", cursor: "pointer", color: colors.textPrimary }}
                         >
                             Forgot password?
                         </Typography>
@@ -98,7 +98,7 @@ function LoginForm() {
                         >
                             Not registered yet?{" "}
                             <span
-                                style={{ color: colors.primary, cursor: "pointer" }}
+                                style={{ color: colors.textPrimary, cursor: "pointer" }}
                                 onClick={toggleForm}
                             >
                                 Create an Account
@@ -106,13 +106,13 @@ function LoginForm() {
                         </Typography>
                     </>
                     : <Typography
-                        variant="body1"
+                        variant="body2"
                         component="span"
                         style={{ marginTop: "10px" }}
                     >
                         Already a User?{" "}
                         <span
-                            style={{ color: colors.primary , cursor: "pointer" }}
+                            style={{ color: colors.textPrimary , cursor: "pointer" }}
                             onClick={toggleForm}
                         >
                             Please login

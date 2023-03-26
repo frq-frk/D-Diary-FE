@@ -11,6 +11,7 @@ import { auth } from '../../firebase';
 import { verifyPasswordResetCode, confirmPasswordReset } from "firebase/auth";
 import { loadingEnd, loadingInitiate } from '../../redux/actions';
 import { toast } from 'react-toastify';
+import { passwordValidator } from '../../utils/AuthUtils';
 
 
 function NewPasswordForm() {
@@ -22,6 +23,8 @@ function NewPasswordForm() {
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
     const [e, setE] = useState(null)
 
+    const [passwordHelperText, setPasswordHelperText] = React.useState("");
+    const [confirmPasswordErrorText, setConfirmPasswordErrorText] = React.useState("");
 
     const [password, setPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -35,7 +38,14 @@ function NewPasswordForm() {
     }
 
     const handleConfirmPasswordChange = (event) => {
-        setConfirmPassword(event.target.value);
+        const temp = event.target.value
+        if(temp.length != password.length){
+            setPasswordHelperText("")
+            setConfirmPasswordErrorText("Confirm password should match with password field")
+        }else {
+            setConfirmPasswordErrorText("")
+        }
+        setConfirmPassword(temp);
     }
 
     const handleMouseDownPassword = (event) => {
@@ -56,6 +66,11 @@ function NewPasswordForm() {
         dispatch(loadingInitiate())
         console.log("password :" + password);
         console.log("confirm pwd :" + confirmPassword);
+
+        if(!passwordValidator(password)){
+            setPasswordHelperText("password must contain eight characters with atleast one uppercase, a number and special character")
+            return
+        }
 
         confirmPasswordReset(auth, query.get("oobCode"), password).then((res) => {
             console.log('password updated')

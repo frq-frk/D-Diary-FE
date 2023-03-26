@@ -16,7 +16,7 @@ function Login() {
         transform: "translate(-50%, -50%)",
         width: "75%",
         height: "70%",
-        bgcolor: "transparent",
+        bgcolor: "#ffffff08",
         boxShadow: 24,
     };
 
@@ -45,7 +45,7 @@ function Login() {
                             color: "#f5f5f5",
                         }}
                     >
-                        <ImageFiller image="/images/diaryWithoutBG.png"/>
+                        <ImageFiller image="/images/diaryLogoAuth.png"/>
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={12} lg={6}>
@@ -54,7 +54,7 @@ function Login() {
                             backgroundSize: "cover",
                             height: "70vh",
                             minHeight: "500px",
-                            backgroundColor: "#6495ED",
+                            backgroundColor: "#6495ED80",
                         }}
                     >
 
