@@ -128,177 +128,177 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} ></AdbIcon>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: colors.textPrimary,
-              textDecoration: 'none',
-            }}
-          >
-            {logoName}
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <div>
+      { currentUser && <AppBar position="sticky" sx={{ backgroundColor:"secondary.main" ,zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} ></AdbIcon>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
               sx={{
-                display: { xs: 'block', md: 'none' },
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: colors.textPrimary,
+                textDecoration: 'none',
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-              {currentUser && <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
-                <Typography textAlign="center">Diary</Typography>
-                <Menu
-                  id='diary-menu-appbar'
-                  anchorEl={anchorElDiary}
-                  keepMounted
-                  open={Boolean(anchorElDiary)}
-                  onClose={handleCloseDiaryMenu}
-                  sx={{
-                    display: { xs: 'block', md: 'none' },
-                  }}
-                >
-                  <MenuItem onClick={handleCloseDiaryMenu}>
-                    <Typography textAlign="center">Today's Entry</Typography>
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseDiaryMenu} >
-                    <Typography textAlign="center">Past Entries</Typography>
-                  </MenuItem>
-                </Menu>
-              </MenuItem>}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {logoName}
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-            {currentUser && <Button
-              onClick={anchorElDiaryBlock ? handleCloseDiaryMenuBlock : handleOpenDiaryMenuBlock}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              Diary
-            </Button>
-            }
-            <Menu
-              id='diary-menu-appbar'
-              anchorEl={anchorElDiaryBlock}
-              keepMounted
-              open={Boolean(anchorElDiaryBlock)}
-              onClose={handleCloseDiaryMenuBlock}
-              sx={{ mt: '45px' }}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-            >
-              <MenuItem onClick={handleCloseDiaryMenuBlock}>
-                <Typography textAlign="center">Today's Entry</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseDiaryMenuBlock} >
-                <Typography textAlign="center">Past Entries</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+              {logoName}
+            </Typography>
 
-          {currentUser && <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={`${currentUser.displayName ? currentUser.displayName : `user`}'s Settings`}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={currentUser.photoURL}></Avatar>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color={colors.textPrimary}
+              >
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center" sx={{ color: colors.textPrimary }}>{page}</Typography>
+                  </MenuItem>
+                ))}
+                {currentUser && <MenuItem onClick={anchorElDiary ? handleCloseDiaryMenu : handleOpenDiaryMenu}>
+                  <Typography textAlign="center" sx={{ color: colors.textPrimary }}>Diary</Typography>
+                  <Menu
+                    id='diary-menu-appbar'
+                    anchorEl={anchorElDiary}
+                    keepMounted
+                    open={Boolean(anchorElDiary)}
+                    onClose={handleCloseDiaryMenu}
+                    sx={{
+                      display: { xs: 'block', md: 'none' },
+                    }}
+                  >
+                    <MenuItem onClick={handleCloseDiaryMenu}>
+                      <Typography textAlign="center" sx={{ color: colors.textPrimary }}>Today's Entry</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleCloseDiaryMenu} >
+                      <Typography textAlign="center" sx={{ color: colors.textPrimary }}>Past Entries</Typography>
+                    </MenuItem>
+                  </Menu>
+                </MenuItem>}
+              </Menu>
+            </Box>
+            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: colors.textPrimary,
+                textDecoration: 'none',
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              {logoName}
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, display: 'block', color: colors.textPrimary }}
+                >
+                  {page}
+                </Button>
               ))}
-            </Menu>
-          </Box>}
-        </Toolbar>
-      </Container>
-    </AppBar >
+              {currentUser && <Button
+                onClick={anchorElDiaryBlock ? handleCloseDiaryMenuBlock : handleOpenDiaryMenuBlock}
+                sx={{ my: 2, display: 'block', color: colors.textPrimary }}
+              >
+                Diary
+              </Button>
+              }
+              <Menu
+                id='diary-menu-appbar'
+                anchorEl={anchorElDiaryBlock}
+                keepMounted
+                open={Boolean(anchorElDiaryBlock)}
+                onClose={handleCloseDiaryMenuBlock}
+                sx={{ mt: '45px' }}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <MenuItem onClick={handleCloseDiaryMenuBlock}>
+                  <Typography textAlign="center">Today's Entry</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseDiaryMenuBlock} >
+                  <Typography textAlign="center">Past Entries</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+
+            {currentUser && <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title={`${currentUser.displayName ? currentUser.displayName : `user`}'s Settings`}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={currentUser.photoURL}></Avatar>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting, index) => (
+                  <MenuItem key={index} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>}
+          </Toolbar>
+        </Container>
+      </AppBar >}
+    </div>
   );
 }
 export default ResponsiveAppBar;

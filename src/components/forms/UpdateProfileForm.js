@@ -18,6 +18,7 @@ import axios from 'axios'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function UpdateProfileForm() {
   const [professionField, setProfessionField] = useState('')
@@ -60,14 +61,6 @@ function UpdateProfileForm() {
 
   const handleLongTermGoalChange = (event) => {
     setLongTermGoalField(event.target.value)
-  }
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setMsg(null)
-    setOpen(false)
   }
 
   const handleDialogOpen = () => {
@@ -115,16 +108,21 @@ function UpdateProfileForm() {
       })
       .then((response) => {
         console.log(response)
-        setMsg('Successfully updated your Profile')
+        fetchAndUpdateFields()
+        toast.success("Successfully updated the profile!", {
+          position: 'bottom-left',
+          toastId: 1
+      })
       })
       .catch((e) => {
-         
-        setMsg('Error Occured while updtaing your profile!!!')
+        fetchAndUpdateFields()
+        toast.error("Error while updating the profile!", {
+          position: 'bottom-left',
+          toastId: 1
+      })
       })
     setDialog(false)
-    setOpen(true)
     dispatch(loadingEnd())
-    fetchAndUpdateFields()
   }
 
   useEffect(() => {
@@ -142,11 +140,6 @@ function UpdateProfileForm() {
         padding: 3,
       }}
     >
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="info">
-          {msg}
-        </Alert>
-      </Snackbar>
       <Typography variant="h6" component="h5">
         Update Profile
       </Typography>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import DiaryEntryForm from '../../components/forms/DiaryEntryForm';
@@ -19,7 +19,14 @@ function TodayEntry() {
     return (
         <Box sx={{ m: 4 }}>
             <h4>Today's Diary Entry</h4>
-            <DiaryEntryForm />
+            <Grid container>
+                <Grid item xs={12} sm={12} lg={3}>
+                    <h2>Settings</h2>
+                </Grid>
+                <Grid item xs={12} sm={12} lg={9}>
+                    <DiaryEntryForm />
+                </Grid>
+            </Grid>
         </Box>
     )
 }

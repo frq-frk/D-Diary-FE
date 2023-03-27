@@ -5,12 +5,14 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import InputAdornment from '@mui/material/InputAdornment';
 import { resetPassword } from '../../utils/FirebaseUtils';
 import { toast } from 'react-toastify';
+import { emailValidator } from '../../utils/AuthUtils';
 
 function ResetPasswordForm() {
 
     const [mail, setMail] = React.useState("");
     const [submitted, setSubmitted] = React.useState(false);
 
+    const [mailError, setMailError] = React.useState(false);
 
     const { loading } = useSelector(state => state.user)
 
@@ -20,6 +22,12 @@ function ResetPasswordForm() {
 
     const handleSubmit = () => {
         console.log(mail);
+
+        if(!emailValidator(mail)){
+            setMailError(true)
+            return
+        }
+
         resetPassword(mail)
         .then((res) => {
             console.log(res);
@@ -49,6 +57,8 @@ function ResetPasswordForm() {
                     label="Mail"
                     value={mail}
                     onChange={handleMailChange}
+                    helperText="Please enter a valid email"
+                    error={mailError}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="start">
