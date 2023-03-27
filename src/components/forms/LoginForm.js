@@ -58,7 +58,6 @@ function LoginForm() {
 
     return (
 
-
         <Box
             sx={{
                 height: '100%',
@@ -77,7 +76,7 @@ function LoginForm() {
                     variant="body1"
                     component="span"
                     onClick={toggleIsPasswordReset}
-                    style={{ marginTop: "10px", cursor: "pointer" }}
+                    style={{ marginTop: "10px", cursor: "pointer", color: colors.text }}
                 >
                     Back
                 </Typography>) : (isLogin ?
@@ -86,7 +85,7 @@ function LoginForm() {
                             variant="body1"
                             component="span"
                             onClick={toggleIsPasswordReset}
-                            style={{ marginTop: "10px", cursor: "pointer", color: colors.textPrimary }}
+                            style={{ marginTop: "10px", cursor: "pointer", color: colors.text }}
                         >
                             Forgot password?
                         </Typography>
@@ -98,7 +97,7 @@ function LoginForm() {
                         >
                             Not registered yet?{" "}
                             <span
-                                style={{ color: colors.textPrimary, cursor: "pointer" }}
+                                style={{ color: colors.text, cursor: "pointer" }}
                                 onClick={toggleForm}
                             >
                                 Create an Account
@@ -106,13 +105,13 @@ function LoginForm() {
                         </Typography>
                     </>
                     : <Typography
-                        variant="body2"
+                        variant="body1"
                         component="span"
                         style={{ marginTop: "10px" }}
                     >
                         Already a User?{" "}
                         <span
-                            style={{ color: colors.textPrimary , cursor: "pointer" }}
+                            style={{ color: colors.text , cursor: "pointer" }}
                             onClick={toggleForm}
                         >
                             Please login
@@ -121,7 +120,7 @@ function LoginForm() {
             }
 
             {(!isResetPassword && isLogin) && (
-                <Grid container spacing={1} mt={5}>
+                <Grid container spacing={1} mt={2}>
                     <Grid item xs={12} md={12} lg={6}>
                         <Button variant="outlined" disabled={loading ? true : false} onClick={loginWithGoogle} color='textPrimary' ><GoogleIcon fontSize='small' /> Login using Google</Button>
                     </Grid>

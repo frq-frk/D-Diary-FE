@@ -19,7 +19,8 @@ function EditableProfile(props) {
         <Box>
             <Paper elevation={3} sx={{
                 margin: 1,
-                padding: 2
+                padding: 2,
+                backgroundColor: "decoratory.main"
             }}>
                 <Box sx={{
                     display: 'flex',
@@ -34,7 +35,9 @@ function EditableProfile(props) {
                 <Typography variant="subtitle2" component="h6" my={3}>{`Profession : ${props.props.profession}`}</Typography>
                 <Typography variant="subtitle2" component="h6" my={3}>{`Bio : ${props.props.bio}`}</Typography>
                 <Typography variant="h6" component="h6">Goals</Typography>
-                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{
+                    backgroundColor: "decoratory.main"
+                }}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="weekly-content"
@@ -46,7 +49,9 @@ function EditableProfile(props) {
                         <Typography variant="subtitle2" component="h6" my={3}>{props.props.weekGoal}</Typography>
                     </AccordionDetails>
                 </Accordion>
-                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')} sx={{
+                    backgroundColor: "decoratory.main"
+                }}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="monthly-content"
@@ -58,7 +63,9 @@ function EditableProfile(props) {
                         <Typography variant="subtitle2" component="h6" my={3}>{`${props.props.monthGoal}`}</Typography>
                     </AccordionDetails>
                 </Accordion>
-                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} sx={{
+                    backgroundColor: "decoratory.main"
+                }}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="shortTerm-content"
@@ -70,7 +77,9 @@ function EditableProfile(props) {
                         <Typography variant="subtitle2" component="h6" my={3}>{props.props.shortTermGoal}</Typography>
                     </AccordionDetails>
                 </Accordion>
-                <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')} sx={{
+                    backgroundColor: "decoratory.main"
+                }}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="longTerm-content"
