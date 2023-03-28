@@ -6,6 +6,7 @@ const initialState = {
     error: null,
     token: null,
     isVerified: null,
+    userProfile:null,
 }
 
 const userReducer = (state = initialState, action) => {
@@ -72,6 +73,7 @@ const userReducer = (state = initialState, action) => {
                 token: null,
                 error: null,
                 isVerified: null,
+                userProfile:null
             }
 
         case types.LOGOUT_FAIL:
@@ -91,6 +93,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            }
+
+        case types.UPDATE_USER_PROFILE:
+            return{
+                ...state,
+                userProfile: action.payload,
             }
 
         default:
