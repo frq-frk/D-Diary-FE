@@ -9,13 +9,16 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { getMonthName } from '../../utils/DateUtils';
+import { getMonthName, getMonthYearList } from '../../utils/DateUtils';
 import { Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 function EntriesTraverser({ year, setYear, month, setMonth }) {
 
     const [yearOpen, setYearOpen] = React.useState(false);
     const [monthOpen, setMonthOpen] = React.useState(false);
+
+    const { userProfile } = useSelector((state) => state.user)
 
     const handleYearClose = (event, reason) => {
         if (reason !== 'backdropClick') {
@@ -47,7 +50,7 @@ function EntriesTraverser({ year, setYear, month, setMonth }) {
     const handleMonthClickOpen = () => {
         setMonthOpen(true)
     };
-
+    const { monthArray, yearArray } = getMonthYearList(userProfile && userProfile.joinMonth, userProfile && userProfile.joinYear);
     return (
         <div>
             <Typography variant="h6" component="h6">Travel back in memories here....</Typography>
@@ -57,16 +60,15 @@ function EntriesTraverser({ year, setYear, month, setMonth }) {
                 <DialogContent>
                     <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel htmlFor="demo-dialog-native">Age</InputLabel>
+                            <InputLabel htmlFor="demo-dialog-native">Month</InputLabel>
                             <Select
                                 native
                                 value={month}
                                 onChange={handleMonthChange}
                                 input={<OutlinedInput label="Age" id="demo-dialog-native" />}
                             >
-                                <option value={"01"}>January</option>
-                                <option value={"02"}>February</option>
-                                <option value={"03"}>March</option>
+                                {console.log(month)}
+                                {monthArray.map((m, index) => (<option value={index < 10 ? `0${index + 1}` : index}>{m}</option>))}
                             </Select>
                         </FormControl>
                     </Box>
@@ -82,16 +84,14 @@ function EntriesTraverser({ year, setYear, month, setMonth }) {
                 <DialogContent>
                     <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel htmlFor="demo-dialog-native">Age</InputLabel>
+                            <InputLabel htmlFor="demo-dialog-native">Year</InputLabel>
                             <Select
                                 native
                                 value={year}
                                 onChange={handleYearChange}
                                 input={<OutlinedInput label="Age" id="demo-dialog-native" />}
                             >
-                                <option value={"2023"}>2023</option>
-                                <option value={"2022"}>2022</option>
-                                <option value={"2021"}>2021</option>
+                                {yearArray.map((y) => <option value={y}>{y}</option>)}
                             </Select>
                         </FormControl>
                     </Box>
