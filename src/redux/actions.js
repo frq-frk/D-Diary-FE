@@ -60,6 +60,11 @@ const userExists = (user) => ({
   payload: user,
 })
 
+export const updateUserProfile = (obj) => ({
+  type: types.UPDATE_USER_PROFILE,
+  payload: obj
+})
+
 export const googleLoginInitiate = () => {
   const googleAuthProvider = new GoogleAuthProvider()
   return async function (dispatch) {

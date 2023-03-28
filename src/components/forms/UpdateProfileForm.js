@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { loadingInitiate, loadingEnd } from '../../redux/actions'
+import { loadingInitiate, loadingEnd, updateUserProfile } from '../../redux/actions'
 import axios from 'axios'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
@@ -31,7 +31,7 @@ function UpdateProfileForm() {
   const [open, setOpen] = useState(false)
   const [dialog, setDialog] = useState(false)
 
-  const { loading, token, currentUser } = useSelector((state) => state.user)
+  const { loading, token, currentUser, userProfile } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
@@ -72,21 +72,36 @@ function UpdateProfileForm() {
   }
 
   const fetchAndUpdateFields = () => {
-    axios
-      .get('http://localhost:5000/v1/user/get-profile', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setProfessionField(response.data.profession)
-        setBioField(response.data.bio)
-        setWeeklyGoalField(response.data.weekGoal)
-        setMonthlyGoalField(response.data.monthGoal)
-        setShortTermGoalField(response.data.shortTermGoal)
-        setLongTermGoalField(response.data.longTermGoal)
-      })
-      .catch((e) => console.log(e)  )
+
+    var data = null;
+
+    if (userProfile && !userProfile.message) {
+      // console.log(userProfile)
+      data = userProfile;
+    } else {
+
+      axios
+        .get('http://localhost:5000/v1/user/get-profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          data = response.data;
+          dispatch(updateUserProfile(response.data));
+        })
+        .catch((e) => console.log(e))
+    }
+
+    if (data) {
+      console.log(data)
+      setProfessionField(data.profession)
+      setBioField(data.bio)
+      setWeeklyGoalField(data.weekGoal)
+      setMonthlyGoalField(data.monthGoal)
+      setShortTermGoalField(data.shortTermGoal)
+      setLongTermGoalField(data.longTermGoal)
+    }
   }
 
   const handleProfileUpdate = () => {
@@ -108,18 +123,19 @@ function UpdateProfileForm() {
       })
       .then((response) => {
         console.log(response)
+        dispatch(updateUserProfile(response.data))
         fetchAndUpdateFields()
         toast.success("Successfully updated the profile!", {
           position: 'bottom-left',
           toastId: 1
-      })
+        })
       })
       .catch((e) => {
         fetchAndUpdateFields()
         toast.error("Error while updating the profile!", {
           position: 'bottom-left',
           toastId: 1
-      })
+        })
       })
     setDialog(false)
     dispatch(loadingEnd())
@@ -130,7 +146,7 @@ function UpdateProfileForm() {
       navigate('/login')
     }
     fetchAndUpdateFields()
-  }, [currentUser])
+  }, [currentUser, userProfile])
 
   return (
     <Paper
