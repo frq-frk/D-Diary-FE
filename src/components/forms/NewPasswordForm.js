@@ -56,7 +56,7 @@ function NewPasswordForm() {
         event.preventDefault();
     };
 
-    const query = new URLSearchParams(useLocation().search);
+    const query = new URLSearchParams(useLocation().state);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
