@@ -20,7 +20,7 @@ function IconGroup() {
       item
       xs={12}
       sm={4}
-      md={6}
+      md={4}
     >
       <Typography variant="h6">Quick Links</Typography>
       <Grid container spacing={2} direction={'row'} my={2}>

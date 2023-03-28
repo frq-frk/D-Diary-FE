@@ -26,7 +26,7 @@ function Profile() {
     },[token])
 
     return (
-        <Grid item xs={12} sm={8} md={6}>
+        <Grid item xs={12} sm={8} md={5}>
             <ReadableProfile props={data}/>
             <EditableProfile props={data}/>
         </Grid>
