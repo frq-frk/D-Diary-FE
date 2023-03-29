@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth'
 import { sendEmail } from '../utils/FirebaseUtils'
+import { createProfile } from '../utils/AuthUtils'
 
 const signupWithEmailSuccess = (user) => ({
   type: types.SIGN_UP_WITH_EMAIL_SUCCESS,
@@ -109,7 +110,10 @@ export const emailSignupInitiate = ({ email, passwd, dName }) => {
         })
           .then(() => {
             dispatch(signupWithEmailSuccess(result.user))
-            sendEmail(result.user)
+            sendEmail(result.user).then((msg) => {
+              console.log(`creating a profile ${result.user.accessToken}`)
+              createProfile(result.user.accessToken)
+            }).catch(e => console.log(e))
           })
           .catch((err) => {
             console.log(err)

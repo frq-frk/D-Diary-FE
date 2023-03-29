@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router';
-import { auth } from '../firebase'; 
+import { auth } from '../firebase';
 import { useLocation } from "react-router-dom";
 import { applyActionCode } from '@firebase/auth';
 
@@ -17,11 +17,7 @@ function FirebaseEmailRouteHandler() {
         const lang = query.get('lang') || 'en';
 
         const emailVerification = (code) => {
-            applyActionCode(auth, actionCode).then((resp) => {
-                navigate('/updateProfile')
-            }).catch((error) => {
-                setMsg("Error occured while verifying your email. Please try again!!")
-            });
+
         }
 
         switch (mode) {
@@ -32,7 +28,11 @@ function FirebaseEmailRouteHandler() {
                 setMsg("Invalid mode")
                 break;
             case 'verifyEmail':
-                emailVerification(actionCode);
+                applyActionCode(auth, actionCode).then((resp) => {
+                    navigate('/updateProfile')
+                }).catch((error) => {
+                    setMsg("Error occured while verifying your email. Please try again!!")
+                });;
                 break;
             default:
                 setMsg("Invalid mode")
