@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getAdditionalUserInfo
 } from 'firebase/auth'
 import { sendEmail } from '../utils/FirebaseUtils'
 import { createProfile } from '../utils/AuthUtils'
@@ -74,6 +75,11 @@ export const googleLoginInitiate = () => {
     await signInWithPopup(auth, googleAuthProvider)
       .then((result) => {
         console.log(result.user.uid)
+        const { isNewUser } = getAdditionalUserInfo(result)
+        if (isNewUser) {
+          console.log(`creating a profile ${result.user.accessToken}`)
+          createProfile(result.user.accessToken)
+        }
         dispatch(loginSuccess(result.user))
       })
       .catch((err) => {
@@ -88,6 +94,11 @@ export const facebookLoginInitiate = () => {
     dispatch(loginStart())
     await signInWithPopup(auth, fbAuthProvider)
       .then((result) => {
+        const { isNewUser } = getAdditionalUserInfo(result)
+        if (isNewUser) {
+          console.log(`creating a profile ${result.user.accessToken}`)
+          createProfile(result.user.accessToken)
+        }
         dispatch(loginSuccess(result.user))
       })
       .catch((err) => {
@@ -121,7 +132,7 @@ export const emailSignupInitiate = ({ email, passwd, dName }) => {
               .then(() => {
                 dispatch(loginFail('Error while creating user'))
               })
-              .catch((e) => {})
+              .catch((e) => { })
           })
       })
       .catch((err) => {
