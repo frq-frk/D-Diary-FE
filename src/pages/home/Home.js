@@ -1,31 +1,31 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Box } from '@mui/material'
-import Dashboard from '../profile/Dashboard'
+import { checkLoggedIn, loadingEnd, loadingInitiate } from '../../redux/actions'
+import { auth } from '../../firebase'
+
+import CircularProgress from '@mui/material/CircularProgress'
 
 function Home() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-    const { currentUser, isVerified } = useSelector(state => state.user)
-    const navigate = useNavigate()
+  useEffect(() => {
+    dispatch(loadingInitiate())
+    auth.onAuthStateChanged((user) => {
+      if (user && user.emailVerified) {
+        dispatch(checkLoggedIn(user))
+        navigate('/dashboard')
+      }else if(user){
+        navigate('/verifyEmail')
+      } else {
+        navigate('/login')
+      }
+    })
+    dispatch(loadingEnd())
+  }, [dispatch, navigate])
 
-    useEffect(() => {
-        if (!currentUser) {
-            navigate('/login')
-        }else if(isVerified != null && !isVerified){
-            navigate('/verifyemail')
-        }
-    }, [currentUser, navigate, isVerified])
-
-    
-
-    return (
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            {/* <FullWidthTabs/>             */}
-            {/* <p>This is Home</p> */}
-            <Dashboard/>
-        </Box>
-    )
+  return <CircularProgress />
 }
 
 export default Home

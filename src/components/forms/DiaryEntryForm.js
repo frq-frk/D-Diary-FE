@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { toast } from 'react-toastify';
 
 function DiaryEntryForm() {
 
@@ -26,12 +27,11 @@ function DiaryEntryForm() {
     const [place, setPlace] = useState("")
     const [description, setDescription] = useState("")
     const [thoughts, setThoughts] = useState("")
-    const [msg, setMsg] = useState(null)
-    const [open, setOpen] = useState(false);
     const [dialog, setDialog] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/entrybytoday`, {
+        axios.get(`http://localhost:5000/v1/dairy/entrybytoday`,
+         {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -39,21 +39,23 @@ function DiaryEntryForm() {
             // console.log(res.data)
             if (res.data.length >= 1) {
                 setIsEntryEmpty(false);
-                setMsg("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!")
-                setOpen(true)
+                toast.info("Today's entry is already saved! Only one entry per day and can not be updated or deleted!!", {
+                    position: 'bottom-left',
+                    toastId: 1
+                })
             }
-        }).catch((e) => console.log(e));
+        }).catch((e) =>console.log(e)  );
     })
 
     const updateEntries = () => {
-        axios.put("http://localhost:5000/incremententries",{} ,{
+        axios.put("http://localhost:5000/v1/user/incrementEntries",{} ,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((response) => {
             console.log(response)
         }).catch((e) => {
-            console.log(e)
+             
         })
     }
 
@@ -76,7 +78,7 @@ function DiaryEntryForm() {
         dispatch(loadingInitiate())
         const text = `Entry: ${getCurrentDate('/')}\n${day}\n${place}\n\nDear Diary\n${description}\n${thoughts}\n\nYour's lovingly\n${currentUser.displayName}`;
         console.log(text);
-        axios.post("http://localhost:5000/entry", {
+        axios.post("http://localhost:5000/v1/dairy/entry", {
             "entry": text
         },
             {
@@ -86,13 +88,17 @@ function DiaryEntryForm() {
             }).then((response) => {
                 console.log(response);
                 updateEntries();
-                setMsg("Successfully saved your entry to your diary")
+                toast.success("Successfully saved your entry to your diary", {
+                    position: 'bottom-left',
+                    toastId: 1
+                })
             }).catch((e) => {
-                console.log(e);
-                setMsg("Error Occured while saving your entry!!!")
+                toast.error("Error Occured while saving your entry!!!", {
+                    position: 'bottom-left',
+                    toastId: 1
+                })
             })
         setDialog(false)
-        setOpen(true)
         dispatch(loadingEnd())
         setPlace("");
         setDescription("");
@@ -100,14 +106,6 @@ function DiaryEntryForm() {
         event.preventDefault();
 
     }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setMsg(null)
-        setOpen(false);
-    };
 
     const handleDialogOpen = () => {
         setDialog(true);
@@ -124,7 +122,6 @@ function DiaryEntryForm() {
             padding: '5%',
             textAlign: 'left'
         }}>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}><Alert onClose={handleClose} severity="info">{msg}</Alert></Snackbar>
             <h5> Entry: {getCurrentDate('/')} </h5>
             <h5>{day}</h5>
             <TextField

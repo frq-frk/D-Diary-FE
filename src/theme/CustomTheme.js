@@ -19,5 +19,10 @@ export const customTheme = createTheme({
         main : colors.text,
       }
     },
+    typography: {
+      fontFamily: [
+        'Kalam',
+      ].join(','),
+    },
   });
 

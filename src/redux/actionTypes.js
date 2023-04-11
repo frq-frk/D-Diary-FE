@@ -14,3 +14,6 @@ export const LOGOUT_FAIL = "LOGOUT_FAIL";
 
 export const LOADING_START = "LOADING_START";
 export const LOADING_STOP = "LOADING_STOP";
+export const USER_EXISTS = "USER_EXISTS";
+
+export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE"

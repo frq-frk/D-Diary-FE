@@ -6,6 +6,7 @@ const initialState = {
     error: null,
     token: null,
     isVerified: null,
+    userProfile:null,
 }
 
 const userReducer = (state = initialState, action) => {
@@ -21,6 +22,14 @@ const userReducer = (state = initialState, action) => {
             }
 
             case types.LOGIN_WITH_EMAIL_SUCCESS:
+                return {
+                    ...state,
+                    loading: false,
+                    currentUser: action.payload.providerData[0],
+                    token: action.payload.accessToken,
+                    isVerified: action.payload.emailVerified,
+                }
+            case types.USER_EXISTS:
                 return {
                     ...state,
                     loading: false,
@@ -64,6 +73,7 @@ const userReducer = (state = initialState, action) => {
                 token: null,
                 error: null,
                 isVerified: null,
+                userProfile:null
             }
 
         case types.LOGOUT_FAIL:
@@ -83,6 +93,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            }
+
+        case types.UPDATE_USER_PROFILE:
+            return{
+                ...state,
+                userProfile: action.payload,
             }
 
         default:

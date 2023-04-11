@@ -5,13 +5,14 @@
 .pageContainer{
     border-radius: 5px;
     box-shadow: 0px 5px 5px gray;
-    background-color: #E7D2CC;
+    background-color: #6495ED80;
     padding: 30px;
     margin: 10px;  
 }
 
 pre {
     white-space: pre-wrap;
+    font-family: 'Kalam', cursive;
     text-align: start;
-    text-decoration: underline grey;
+    margin: 5% 8%;
 }
