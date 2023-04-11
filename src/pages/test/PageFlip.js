@@ -54,7 +54,7 @@ export class PageFlip extends Component {
             if (e.code === "ERR_BAD_REQUEST")
                 msg = "No entries on this month of the year";
             else if (e.code === "ERR_NETWORK") {
-                alert("network error")
+                // alert("network error")
                 msg = "OOPS1! Network error, Please check the connectivity"
             }
 

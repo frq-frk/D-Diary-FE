@@ -8,7 +8,7 @@ import { updateUserProfile } from '../../redux/actions'
 
 function Profile() {
 
-    const { token, userProfile } = useSelector(state => state.user)
+    const { token, userProfile, currentUser } = useSelector(state => state.user)
     const [data, setData] = useState([])
 
     const dispatch = useDispatch()

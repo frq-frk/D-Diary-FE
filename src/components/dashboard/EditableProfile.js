@@ -32,8 +32,8 @@ function EditableProfile(props) {
                         }
                     }} />
                 </Box>
-                <Typography variant="subtitle2" component="h6" my={3}>{`Profession : ${props.props.profession}`}</Typography>
-                <Typography variant="subtitle2" component="h6" my={3}>{`Bio : ${props.props.bio}`}</Typography>
+                <Typography variant="subtitle2" component="h6" my={3}>{`Profession : ${props.props.profession ? props.props.profession : "to be alive" }`}</Typography>
+                <Typography variant="subtitle2" component="h6" my={3}>{`Bio : ${props.props.bio ? props.props.bio : "human being"}`}</Typography>
                 <Typography variant="h6" component="h6">Goals</Typography>
                 <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{
                     backgroundColor: "decoratory.main"
@@ -46,7 +46,7 @@ function EditableProfile(props) {
                         <Typography>Weekly</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography variant="subtitle2" component="h6" my={3}>{props.props.weekGoal}</Typography>
+                        <Typography variant="subtitle2" component="h6" my={3}>{props.props.weekGoal ? props.props.weekGoal : "your weekly goal goes here"}</Typography>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')} sx={{
@@ -60,7 +60,7 @@ function EditableProfile(props) {
                         <Typography>Monthly</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography variant="subtitle2" component="h6" my={3}>{`${props.props.monthGoal}`}</Typography>
+                        <Typography variant="subtitle2" component="h6" my={3}>{`${props.props.monthGoal ? props.props.monthGoal : "your monthly goal goes here"}`}</Typography>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} sx={{
@@ -74,7 +74,7 @@ function EditableProfile(props) {
                         <Typography>Short Term</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography variant="subtitle2" component="h6" my={3}>{props.props.shortTermGoal}</Typography>
+                        <Typography variant="subtitle2" component="h6" my={3}>{props.props.shortTermGoal ? props.props.shortTermGoal : "your short term goal goes here"}</Typography>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')} sx={{
@@ -88,7 +88,7 @@ function EditableProfile(props) {
                         <Typography>Long Term</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography variant="subtitle2" component="h6" my={3}>{props.props.longTermGoal}</Typography>
+                        <Typography variant="subtitle2" component="h6" my={3}>{props.props.longTermGoal ? props.props.longTermGoal : "your long term goal goes here"}</Typography>
                     </AccordionDetails>
                 </Accordion>
             </Paper>

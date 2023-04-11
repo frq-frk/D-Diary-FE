@@ -34,8 +34,8 @@ function ReadableProfile(props) {
                     background: 'transparent'
                 }}>
                     <Typography variant="subtitle2" component="h6" my={1}>{`Email : ${currentUser && currentUser.email}`}</Typography>
-                    <Typography variant="subtitle2" component="h6" my={1}>{`Joined on : ${props.props.joinMonth} ${props.props.joinYear}`}</Typography>
-                    <Typography variant="subtitle2" component="h6" my={1}>{`Total Entries : ${props.props.totalEntries}`}</Typography>
+                    <Typography variant="subtitle2" component="h6" my={1}>{`Joined on : ${props.props.joinMonth ? props.props.joinMonth : "month"} ${props.props.joinYear ? props.props.joinYear : "year"}`}</Typography>
+                    <Typography variant="subtitle2" component="h6" my={1}>{`Total Entries : ${props.props.totalEntries ? props.props.totalEntries : "unknown"}`}</Typography>
                 </Grid>
             </Grid>
         </Box>
