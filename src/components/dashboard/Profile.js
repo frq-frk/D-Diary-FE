@@ -20,7 +20,7 @@ function Profile() {
             setData(userProfile)
         } else {
 
-            axios.get("https://3.26.97.225:5000/v1/user/get-profile",
+            axios.get("http://3.26.97.225:5000/v1/user/get-profile",
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`

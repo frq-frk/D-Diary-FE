@@ -31,7 +31,7 @@ export class PageFlip extends Component {
     fetchData = () => {
         console.log(`${this.props.month}-${this.props.year}`)
         console.log(this.state.token)
-        axios.get(`https://3.26.97.225:5000/v1/dairy/entrybymonth?month=${this.props.month}&year=${this.props.year}`, {
+        axios.get(`http://3.26.97.225:5000/v1/dairy/entrybymonth?month=${this.props.month}&year=${this.props.year}`, {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             }
