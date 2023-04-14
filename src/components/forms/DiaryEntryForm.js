@@ -45,7 +45,7 @@ function DiaryEntryForm() {
                 })
             }
         }).catch((e) =>console.log(e)  );
-    })
+    }, [])
 
     const updateEntries = () => {
         axios.put("http://3.26.97.225/api/v1/user/incrementEntries",{} ,{
