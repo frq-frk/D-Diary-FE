@@ -81,7 +81,7 @@ function UpdateProfileForm() {
     } else {
 
       axios
-        .get('http://3.26.97.225/api/v1/user/get-profile', {
+        .get('https://app.selfscribe.online/api/v1/user/get-profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -116,7 +116,7 @@ function UpdateProfileForm() {
     }
 
     axios
-      .put('http://3.26.97.225/api/v1/user/update-profile', data, {
+      .put('https://app.selfscribe.online/api/v1/user/update-profile', data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
