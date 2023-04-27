@@ -12,7 +12,7 @@ export const passwordValidator = (password) => {
 
 export function createProfile(token){
     console.log(`in create profile function ${token}`)
-    axios.post('http://3.26.97.225/api/v1/user/create-profile',{}, {
+    axios.post('https://app.selfscribe.online/api/v1/user/create-profile',{}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
