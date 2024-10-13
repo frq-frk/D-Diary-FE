@@ -30,7 +30,7 @@ function DiaryEntryForm() {
     const [dialog, setDialog] = useState(false);
 
     useEffect(() => {
-        axios.get(`https://app.selfscribe.online/api/v1/dairy/entrybytoday`,
+        axios.get(`https://d-diary-be.vercel.app/api/v1/dairy/entrybytoday`,
          {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -48,7 +48,7 @@ function DiaryEntryForm() {
     }, [])
 
     const updateEntries = () => {
-        axios.put("https://app.selfscribe.online/api/v1/user/incrementEntries",{} ,{
+        axios.put("https://d-diary-be.vercel.app/api/v1/user/incrementEntries",{} ,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -78,7 +78,7 @@ function DiaryEntryForm() {
         dispatch(loadingInitiate())
         const text = `Entry: ${getCurrentDate('/')}\n${day}\n${place}\n\nDear Diary\n${description}\n${thoughts}\n\nYour's lovingly\n${currentUser.displayName}`;
         console.log(text);
-        axios.post("https://app.selfscribe.online/api/v1/dairy/entry", {
+        axios.post("https://d-diary-be.vercel.app/api/v1/dairy/entry", {
             "entry": text
         },
             {

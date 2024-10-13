@@ -20,7 +20,7 @@ function Profile() {
             setData(userProfile)
         } else {
 
-            axios.get("https://app.selfscribe.online/api/v1/user/get-profile",
+            axios.get("https://d-diary-be.vercel.app/api/v1/user/get-profile",
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`
